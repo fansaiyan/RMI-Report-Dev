@@ -1,0 +1,9 @@
+<form [formGroup]="forms">
+  <file-upload
+  [control]="fileUploadControl"
+  formControlName="files" 
+  [multiple]="multiple" 
+  [animation]="animation" 
+  (change)="selectFiles()"
+  (drop)="selectFiles()"></file-upload>
+</form>

@@ -1,0 +1,159 @@
+<!--<div class="p-grid">-->
+<!--  <div class="p-col-12">-->
+<!--    <div class="card">-->
+<!--      <div class="p-d-flex p-jc-center">-->
+<!--        <div class="dashboard">-->
+<!--          <div class="overview-box box-sales" style="margin-top: 0 !important">-->
+<!--            <div class="overview-box-title">Pengusul Individu</div>-->
+<!--            <div class="overview-box-value">{{ datapengusul?.jumlahPengusulIndividu }}</div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="dashboard">-->
+<!--          <div class="overview-box box-views" style="margin-top: 0 !important">-->
+<!--            <div class="overview-box-title">Pengusul Individu</div>-->
+<!--            <div class="overview-box-value">{{ datapengusul?.jumlahPengusulLembaga }}</div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="p-col-12">-->
+<!--    <div class="card">-->
+<!--      <div class="p-grid">-->
+<!--        <div class="p-col-6">-->
+<!--          <p-fieldset legend="Jenis Bantuan" [toggleable]="true">-->
+<!--            <app-chart-pie-non-rupiah-->
+<!--                [title]="'Komposisi Bantuan'"-->
+<!--                [data]="dataChart1"-->
+<!--                [disposisiLegend]="false">-->
+<!--            </app-chart-pie-non-rupiah>-->
+<!--          </p-fieldset>-->
+<!--        </div>-->
+<!--        <div class="p-col-6">-->
+<!--          <p-fieldset legend="Rekap Proses" [toggleable]="true">-->
+<!--            <app-chart-pie-non-rupiah-->
+<!--                [title]="'Proposal'"-->
+<!--                [data]="dataChart2"-->
+<!--                [disposisiLegend]="false">-->
+<!--            </app-chart-pie-non-rupiah>-->
+<!--          </p-fieldset>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="p-col-12">-->
+<!--    <div class="card">-->
+<!--      <p-fieldset legend="Rincian Pengajuan Proposal" [toggleable]="true">-->
+<!--        <p-table-->
+<!--          [value]="listGrid1"-->
+<!--          #dt-->
+<!--          [paginator]="true"-->
+<!--          [rowHover]="true"-->
+<!--          [rows]="10" -->
+<!--          [loading]="loadingGrid1"-->
+<!--          [rowsPerPageOptions]="[10,25,50]"-->
+<!--          styleClass="p-datatable-gridlines"-->
+<!--          [showCurrentPageReport]="true"-->
+<!--          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"-->
+<!--          [globalFilterFields]="['URAIAN','Hibah','Bansos','Total']">-->
+<!--          <ng-template pTemplate="header">-->
+<!--            <tr>-->
+<!--              <th style="width: 5%; text-align: center">No</th>-->
+<!--              <th style="width: 30%; text-align: center">Tahapan</th>-->
+<!--              <th style="width: 15%; text-align: center">Hibah</th>-->
+<!--              <th style="width: 15%; text-align: center">Bansos</th>-->
+<!--              <th style="width: 15%;text-align: center">Total Proposal</th>-->
+<!--              <th style="width: 20%;text-align: center">Nilai Pengajuan</th>-->
+<!--            </tr>-->
+<!--          </ng-template>-->
+<!--          <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">-->
+<!--            <tr class="ui-selectable-row">-->
+<!--              <td style="text-align: center;">{{ rowIndex+1 }}</td>-->
+<!--              <td style="text-align: left;">{{ data.URAIAN }}</td>-->
+<!--              <td style="text-align: center;">{{ data.Hibah }}</td>-->
+<!--              <td style="text-align: center;">{{ data.Bansos }}</td>-->
+<!--              <td style="text-align: center;">{{ data.Total }}</td>-->
+<!--              <td style="text-align: right">{{ data.NILAI | currency: 'IDR':'Rp. ': '0.2-4' }}</td>-->
+<!--            </tr>-->
+<!--          </ng-template>-->
+<!--          <ng-template pTemplate="emptymessage" let-columns>-->
+<!--            <tr [style.fontWeight]="'bold'">-->
+<!--                <td [attr.colspan]="6" style="text-align: center;">-->
+<!--                  Data tidak Tersedia-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--          </ng-template>-->
+<!--        </p-table>-->
+<!--      </p-fieldset>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="p-col-12">-->
+<!--    <div class="card">-->
+<!--      <p-fieldset legend="Usulan Berdasarkan Unit Pelaksana" [toggleable]="true">-->
+<!--        <app-chart-column1-->
+<!--          [data]="dataChart3">-->
+<!--        </app-chart-column1>-->
+<!--      </p-fieldset>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="p-col-12">-->
+<!--    <div class="card">-->
+<!--      <p-fieldset legend="Rincian Berdasarkan OPD Pelaksana" [toggleable]="true">-->
+<!--        <p-table-->
+<!--          [value]="listGrid2"-->
+<!--          #dt2-->
+<!--          [paginator]="true"-->
+<!--          [rowHover]="true"-->
+<!--          [rows]="10" -->
+<!--          [loading]="loadingGrid2"-->
+<!--          [rowsPerPageOptions]="[10,25,50]"-->
+<!--          styleClass="p-datatable-gridlines"-->
+<!--          [showCurrentPageReport]="true"-->
+<!--          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"-->
+<!--          [globalFilterFields]="['NMUNIT','Hibah','Bansos','Total']">-->
+<!--          <ng-template pTemplate="caption">-->
+<!--            <div class="p-d-flex p-jc-between">-->
+<!--              <div>-->
+<!--                -->
+<!--              </div>-->
+<!--              <div>-->
+<!--                <span class="p-input-icon-left p-ml-auto">-->
+<!--                  <i class="pi pi-search"></i>-->
+<!--                  <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />-->
+<!--                </span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            -->
+<!--          </ng-template>-->
+<!--          <ng-template pTemplate="header">-->
+<!--            <tr>-->
+<!--              <th style="width: 5%; text-align: center">No</th>-->
+<!--              <th style="width: 30%; text-align: center">Perangkat Daerah</th>-->
+<!--              <th style="width: 15%; text-align: center">Hibah</th>-->
+<!--              <th style="width: 15%; text-align: center">Bansos</th>-->
+<!--              <th style="width: 15%;text-align: center">Total Proposal</th>-->
+<!--              <th style="width: 20%;text-align: center">Nilai Pengajuan</th>-->
+<!--            </tr>-->
+<!--          </ng-template>-->
+<!--          <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">-->
+<!--            <tr class="ui-selectable-row">-->
+<!--              <td style="text-align: center;">{{ rowIndex+1 }}</td>-->
+<!--              <td style="text-align: left;">{{ data.NMUNIT }}</td>-->
+<!--              <td style="text-align: center;">{{ data.Hibah }}</td>-->
+<!--              <td style="text-align: center;">{{ data.Bansos }}</td>-->
+<!--              <td style="text-align: center;">{{ data.Total }}</td>-->
+<!--              <td style="text-align: right">{{ data.NILAI | currency: 'IDR':'Rp. ': '0.2-4' }}</td>-->
+<!--            </tr>-->
+<!--          </ng-template>-->
+<!--          <ng-template pTemplate="emptymessage" let-columns>-->
+<!--            <tr [style.fontWeight]="'bold'">-->
+<!--                <td [attr.colspan]="6" style="text-align: center;">-->
+<!--                  Data tidak Tersedia-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--          </ng-template>-->
+<!--        </p-table>-->
+<!--      </p-fieldset>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

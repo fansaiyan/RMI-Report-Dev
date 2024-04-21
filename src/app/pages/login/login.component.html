@@ -1,0 +1,41 @@
+<div class="login-body" [ngClass]="{'layout-dark': dark, 'layout-light': !dark}">
+    <div class="login-content">
+        <div class="night-switch">
+            <p-button styleClass="dark-switch"  icon="pi pi-circle-on" (click)="dark = true"></p-button>
+            <p-button styleClass="light-switch"  icon="pi pi-circle-off" (click)="dark = false"></p-button>
+        </div>
+        <div class="login-panel">
+            <div class="login-panel-content">
+                <div class="logo">
+<!--                    <img src="assets/layout/images/logo-sikd.png" alt="mirage-layout" />-->
+                </div>
+                <h1>Sign in to Risk Maturity Institute</h1>
+                <p>Welcome, please use the form to sign-in Risk Maturity Institute</p>
+                <form [formGroup]="forms" (submit)="onSubmit()">
+                    <div class="forms">
+                        <div class="login-input-wrapper">
+                            <label for="username">Username</label>
+                            <input id="username" pInputText placeholder="Type your username..." formControlName="login"/>
+                            <i class="pi pi-user"></i>
+                        </div>
+
+                        <div class="login-input-wrapper">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="Type your password" pPassword formControlName="password"/>
+                            <i class="pi pi-lock"></i>
+                        </div>
+                        <div class="buttons">
+                            <button pButton type="submit" label="Login"></button>
+                        </div>
+                    </div>
+                </form>
+                <div style="margin-top: 50px;">
+                    <p><marquee>@Copyright 2024</marquee></p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="desert"></div>
+    </div>
+</div>
+<p-toast key="toast-notif"></p-toast>
