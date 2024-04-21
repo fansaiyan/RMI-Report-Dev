@@ -53,6 +53,7 @@ body {
     }
   }
   .p-dialog {
+    overflow: auto !important;
     .p-dialog-content {
       overflow: unset !important;
     }

@@ -9,6 +9,7 @@ import { ChartColumnCompareComponent } from './charts/chart-column-compare/chart
 import { ChartColumn1Component } from './charts/chart-column1/chart-column1.component';
 import { ChartPieNonRupiahComponent } from './charts/chart-pie-non-rupiah/chart-pie-non-rupiah.component';
 import { InputMaskModule } from '@ngneat/input-mask';
+import { LookupSurveyComponent } from './component/lookup-survey/lookup-survey.component';
 @NgModule({
   declarations: [
     PopupLoadingComponent,
@@ -17,6 +18,7 @@ import { InputMaskModule } from '@ngneat/input-mask';
     ChartColumnCompareComponent,
     ChartColumn1Component,
     ChartPieNonRupiahComponent,
+    LookupSurveyComponent
   ],
   imports: [
     CoreModule,
@@ -30,7 +32,8 @@ import { InputMaskModule } from '@ngneat/input-mask';
     ChartPieComponent,
     ChartColumnCompareComponent,
     ChartColumn1Component,
-    ChartPieNonRupiahComponent
+    ChartPieNonRupiahComponent,
+    LookupSurveyComponent
   ],
   providers: [
     ProgressSpinner

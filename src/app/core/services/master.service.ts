@@ -22,4 +22,13 @@ export class MasterService {
   kompositResiko(): Observable<any>{
     return this.ifService.get(`api/komposit-resiko`) as Observable<any>;
   }
+  surveyList(): Observable<any> {
+    return this.ifService.get(`api/survey-list`) as Observable<any>;
+  }
+  adjustAspekDimensi(params: any): Observable<any> {
+    return this.ifService.get(`api/adjust-aspek-dimensi`, params) as Observable<any>;
+  }
+  adjustAspekDimensiDetail(params: any): Observable<any> {
+    return this.ifService.get(`api/adjust-aspek-dimensi-detail`, params) as Observable<any>;
+  }
 }
