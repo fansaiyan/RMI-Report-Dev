@@ -10,7 +10,13 @@ export class ReportService {
   constructor(
     private ifService: IfService
   ) { }
-	adjustAspekimensi() : Observable<any>{
-		return this.ifService.get(`api/parameter-dimensi`) as Observable<any>;
+    adjustAspekDimensi(params: any): Observable<any> {
+        return this.ifService.get(`api/report/adjust-aspek-dimensi`, params) as Observable<any>;
+    }
+    adjustAspekDimensiDetail(params: any): Observable<any> {
+        return this.ifService.get(`api/report/adjust-aspek-dimensi-detail`, params) as Observable<any>;
+    }
+	penilaianRMI(params: any): Observable<any>{
+		return this.ifService.get(`api/report/hasil-penilaian-rmi`, params) as Observable<any>;
 	}
 }

@@ -25,10 +25,7 @@ export class MasterService {
   surveyList(): Observable<any> {
     return this.ifService.get(`api/survey-list`) as Observable<any>;
   }
-  adjustAspekDimensi(params: any): Observable<any> {
-    return this.ifService.get(`api/adjust-aspek-dimensi`, params) as Observable<any>;
-  }
-  adjustAspekDimensiDetail(params: any): Observable<any> {
-    return this.ifService.get(`api/adjust-aspek-dimensi-detail`, params) as Observable<any>;
+  aspekKinerjaList(): Observable<any> {
+    return this.ifService.get(`api/aspek-kinerja-list`) as Observable<any>;
   }
 }

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MessageService} from 'primeng/api';
-import {MasterService} from 'src/app/core/services/master.service';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {ReportService} from 'src/app/core/services/report.service';
 
 @Component({
   selector: 'app-adjust-aspek-dimensi-detail',
@@ -16,7 +16,7 @@ export class AdjustAspekDimensiDetailComponent implements OnInit, OnDestroy {
   @ViewChild('dt', {static: false}) dt: any;
   constructor(
       private messageService: MessageService,
-      private service: MasterService,
+      private service: ReportService,
       public dialog: DialogService,
       public config: DynamicDialogConfig,
       public ref: DynamicDialogRef

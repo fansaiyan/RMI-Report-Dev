@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { PopupLoadingComponent } from 'src/app/shared/popup-loading/popup-loading.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.forms = this.fb.group({
       login: ['', Validators.required],
       password: ['', Validators.required],
-      db: 'rmi-survey'
+      db: environment.db
     });
     this.initialForm = this.forms.value;
   }

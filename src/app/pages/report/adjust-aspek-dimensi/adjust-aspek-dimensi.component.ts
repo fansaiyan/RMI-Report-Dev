@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {DialogService} from 'primeng/dynamicdialog';
 import {LookupSurveyComponent} from 'src/app/shared/component/lookup-survey/lookup-survey.component';
-import {MasterService} from 'src/app/core/services/master.service';
 import {MessageService} from 'primeng/api';
 import {
   AdjustAspekDimensiDetailComponent
 } from 'src/app/pages/report/adjust-aspek-dimensi/adjust-aspek-dimensi-detail/adjust-aspek-dimensi-detail.component';
+import {ReportService} from 'src/app/core/services/report.service';
 
 @Component({
   selector: 'app-adjust-aspek-dimensi',
@@ -20,7 +20,7 @@ export class AdjustAspekDimensiComponent implements OnInit {
   msgs: any[] = [];
   constructor(
       public dialog: DialogService,
-      private service: MasterService,
+      private service: ReportService,
       private messageService: MessageService,
   ) { }
 
