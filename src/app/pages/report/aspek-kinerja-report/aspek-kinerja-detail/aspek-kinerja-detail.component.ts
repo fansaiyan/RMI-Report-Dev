@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ReportService} from 'src/app/core/services/report.service';
 import {MessageService} from 'primeng/api';
 
@@ -24,6 +24,7 @@ export class AspekKinerjaDetailComponent implements OnInit {
       private activeRoute: ActivatedRoute,
       private service: ReportService,
       private messageService: MessageService,
+      private route: Router
   ) {
     this.id = this.activeRoute.snapshot.paramMap.get('id');
     this.surveyId = this.activeRoute.snapshot.paramMap.get('survey_id');
@@ -80,5 +81,8 @@ export class AspekKinerjaDetailComponent implements OnInit {
         });
       });
     }
+  }
+  back(){
+    this.route.navigate(['report/aspek-kinerja']);
   }
 }
