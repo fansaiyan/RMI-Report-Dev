@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ReportService} from 'src/app/core/services/report.service';
 import {MessageService} from 'primeng/api';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-aspek-kinerja-detail',
@@ -36,7 +39,7 @@ export class AspekKinerjaDetailComponent implements OnInit {
   get(){
     if (this.id){
       this.skeletonVisible = true;
-      this.service.penilaianRMI({'aspek_id': this.id, 'survey_id': this.surveyId}).subscribe((resp) => {
+      this.service.penilaianRMI({aspek_id: this.id, survey_id: this.surveyId}).subscribe((resp) => {
         if (resp.data.kinerja.length > 0){
           this.listdatakinerja = resp.data.kinerja;
           this.listdatakinerja.forEach((f: any) => {
@@ -81,5 +84,20 @@ export class AspekKinerjaDetailComponent implements OnInit {
   }
   back(){
     this.route.navigate(['report/aspek-kinerja']);
+  }
+  print(){
+    const data = document.getElementById('printArea');
+    html2canvas(data).then(canvas => {
+      // Few necessary setting options
+      const imgWidth = 208;
+      const pageHeight = 295;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      const heightLeft = imgHeight;
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
+      const position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.save('hasil-penilaian-RMI.pdf'); // Generated PDF
+    });
   }
 }
