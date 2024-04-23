@@ -5,13 +5,15 @@ import { AdjustAspekDimensiComponent } from './adjust-aspek-dimensi/adjust-aspek
 import { CoreModule } from 'src/app/core/core.module';
 import { AdjustAspekDimensiDetailComponent } from './adjust-aspek-dimensi/adjust-aspek-dimensi-detail/adjust-aspek-dimensi-detail.component';
 import { AspekKinerjaReportComponent } from './aspek-kinerja-report/aspek-kinerja-report.component';
+import { AspekKinerjaDetailComponent } from './aspek-kinerja-report/aspek-kinerja-detail/aspek-kinerja-detail.component';
 
 
 @NgModule({
   declarations: [
     AdjustAspekDimensiComponent,
     AdjustAspekDimensiDetailComponent,
-    AspekKinerjaReportComponent
+    AspekKinerjaReportComponent,
+    AspekKinerjaDetailComponent
   ],
   imports: [
     CoreModule,

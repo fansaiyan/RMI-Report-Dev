@@ -16,6 +16,9 @@ export class ReportService {
     adjustAspekDimensiDetail(params: any): Observable<any> {
         return this.ifService.get(`api/report/adjust-aspek-dimensi-detail`, params) as Observable<any>;
     }
+    aspekKinerjaDetail(id: any): Observable<any>{
+        return this.ifService.get(`api/aspek-kinerja/${id}`) as Observable<any>;
+    }
 	penilaianRMI(params: any): Observable<any>{
 		return this.ifService.get(`api/report/hasil-penilaian-rmi`, params) as Observable<any>;
 	}

@@ -92,4 +92,37 @@ body {
     margin-left: 260px !important;
   }
 
+  .if-table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    thead th {
+      font-weight: 400;
+      background: #8a97a0;
+      color: #FFF;
+    }
+    tr {
+      border-bottom: 1px solid #FFF;
+      margin-bottom: 5px;
+    }
+    tr:nth-child(even) {
+    }
+    tr td:nth-child(1){
+      background: #009999;
+      color: #FFFFFF;
+    }
+    th, td {
+      border: 1px solid #ECF0F1;
+      text-align: left;
+      padding: 10px;
+    }
+    tfoot tr {
+      background: none;
+    }
+    tfoot td {
+      padding: 10px 2px;
+      font-size: 0.8em;
+      font-style: italic;
+      color: #8a97a0;
+    }
+  }
 }

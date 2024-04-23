@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {DialogService} from 'primeng/dynamicdialog';
-import {ReportService} from 'src/app/core/services/report.service';
 import {MessageService} from 'primeng/api';
-import {LookupSurveyComponent} from 'src/app/shared/component/lookup-survey/lookup-survey.component';
-import {
-  AdjustAspekDimensiDetailComponent
-} from 'src/app/pages/report/adjust-aspek-dimensi/adjust-aspek-dimensi-detail/adjust-aspek-dimensi-detail.component';
 import {MasterService} from 'src/app/core/services/master.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-aspek-kinerja-report',
@@ -21,6 +17,7 @@ export class AspekKinerjaReportComponent implements OnInit {
       public dialog: DialogService,
       private service: MasterService,
       private messageService: MessageService,
+      private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -50,5 +47,7 @@ export class AspekKinerjaReportComponent implements OnInit {
     });
   }
   detail(e: any){
+    console.log(e);
+    this.router.navigate(['/report/aspek-kinerja', e.id, 'survey', e.survey_ids]);
   }
 }
