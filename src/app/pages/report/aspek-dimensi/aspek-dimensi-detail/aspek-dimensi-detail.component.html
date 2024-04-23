@@ -1,0 +1,94 @@
+<div class="card">
+    <div class="p-fluid">
+        <div class="p-col-12">
+            <div *ngIf="skeletonVisible">
+                <div class="custom-skeleton p-p-4">
+                    <div class="p-d-flex p-mb-3">
+                        <p-skeleton shape="circle" size="4rem" styleClass="p-mr-2"></p-skeleton>
+                        <div>
+                            <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+                            <p-skeleton width="5rem" styleClass="p-mb-2"></p-skeleton>
+                            <p-skeleton height=".5rem"></p-skeleton>
+                        </div>
+                    </div>
+                    <p-skeleton width="100%" height="150px"></p-skeleton>
+                    <div class="p-d-flex p-jc-between p-mt-3">
+                        <p-skeleton width="4rem" height="2rem"></p-skeleton>
+                        <p-skeleton width="4rem" height="2rem"></p-skeleton>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!skeletonVisible">
+            <div class="p-grid p-fluid">
+                <div class="p-col-12">
+                    <div class="p-d-flex p-jc-between">
+                        <div></div>
+                        <div>
+                              <span class="p-input-icon-left p-ml-auto">
+                                <button (click)="back()" pButton pRipple type="button" icon="pi pi-angle-left" iconPos="left" label="Kembali" class="p-button-outlined p-mr-2 p-mb-2"></button>
+                              </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-col-6">
+                    <div class="p-col-12">
+                        <p-table
+                                [value]="listdata"
+                                [paginator]="false"
+                                [rowHover]="true"
+                                [rows]="10"
+                                #dt
+                                styleClass="p-datatable-gridlines"
+                                [showCurrentPageReport]="true">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 15%; text-align: center">Parameter</th>
+                                    <th style="width: 15%; text-align: center">Dimensi</th>
+                                    <th style="width: 50%; text-align: center">Deskripsi</th>
+                                    <th style="width: 10%; text-align: center">Skor Dimensi</th>
+                                    <th style="width: 10%; text-align: center">Skor</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-data>
+                                <tr>
+                                    <td style="text-align: center;">{{ data.parameter }}</td>
+                                    <td style="text-align: center">{{ data.dimensi }}</td>
+                                    <td style="text-align: left">{{ data.deskripsi }}</td>
+                                    <td style="text-align: center">{{ data.skordimensi }}</td>
+                                    <td style="text-align: center">{{ data.skor_max }}</td>
+                                    <td style="text-align: center"></td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage" let-columns>
+                                <tr>
+                                    <td [attr.colspan]="6" style="text-align: center;">
+                                        Data tidak Tersedia
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <tr>
+                                    <td style="text-align: center">1 s.d 42</td>
+                                    <td colspan="2" style="text-align: left">Skor Aspek Dimensi</td>
+                                    <td style="text-align: center">{{avgDimensi}}</td>
+                                    <td style="text-align: center">{{avgMax}}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                    <div class="p-col-12">
+                        <p-messages [value]="msgs"></p-messages>
+                    </div>
+                </div>
+                <div class="p-col-6">
+                    <div class="p-col-12">
+                        <div class="p-d-flex p-justify-center">
+                            <p-chart type="radar" [data]="radarData" [options]="radarOptions" [style]="{'width': '50%'}"></p-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

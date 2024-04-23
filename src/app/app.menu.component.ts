@@ -27,6 +27,7 @@ export class AppMenuComponent implements OnInit {
                 label: 'Report', icon: 'pi pi-fw pi-print', routerLink: ['/report'],
                 items: [
                     {label: 'Adjust Aspek Dimensi', icon: 'pi pi-fw pi-id-card', routerLink: ['/report/adjust-aspek-dimensi']},
+                    {label: 'Aspek Dimensi', icon: 'pi pi-fw pi-id-card', routerLink: ['/report/aspek-dimensi']},
                     {label: 'Aspek Kinerja', icon: 'pi pi-fw pi-id-card', routerLink: ['/report/aspek-kinerja']}
                 ]
             }

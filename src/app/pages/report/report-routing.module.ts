@@ -6,6 +6,10 @@ import {AspekKinerjaReportComponent} from 'src/app/pages/report/aspek-kinerja-re
 import {
   AspekKinerjaDetailComponent
 } from 'src/app/pages/report/aspek-kinerja-report/aspek-kinerja-detail/aspek-kinerja-detail.component';
+import {AspekDimensiComponent} from 'src/app/pages/report/aspek-dimensi/aspek-dimensi.component';
+import {
+  AspekDimensiDetailComponent
+} from 'src/app/pages/report/aspek-dimensi/aspek-dimensi-detail/aspek-dimensi-detail.component';
 
 const routes: Routes = [
   {
@@ -13,6 +17,18 @@ const routes: Routes = [
     component: AdjustAspekDimensiComponent,
     canActivate: [CanActiveGuardService],
     data: {setTitle: 'Adjust Aspek Dimensi'}
+  },
+  {
+    path: 'aspek-dimensi',
+    component: AspekDimensiComponent,
+    canActivate: [CanActiveGuardService],
+    data: {setTitle: 'Aspek Dimensi'}
+  },
+  {
+    path: 'aspek-dimensi/:survey_id',
+    component: AspekDimensiDetailComponent,
+    canActivate: [CanActiveGuardService],
+    data: {setTitle: 'Aspek Dimensi Detail'}
   },
   {
     path: 'aspek-kinerja',

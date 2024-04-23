@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {DialogService} from 'primeng/dynamicdialog';
-import {MessageService} from 'primeng/api';
 import {MasterService} from 'src/app/core/services/master.service';
+import {MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-aspek-kinerja-report',
-  templateUrl: './aspek-kinerja-report.component.html',
-  styleUrls: ['./aspek-kinerja-report.component.scss']
+  selector: 'app-aspek-dimensi',
+  templateUrl: './aspek-dimensi.component.html',
+  styleUrls: ['./aspek-dimensi.component.scss']
 })
-export class AspekKinerjaReportComponent implements OnInit {
-  listdata: any[] = [];
+export class AspekDimensiComponent implements OnInit {
   loading = false;
+  listdata = [];
   msgs: any[] = [];
   constructor(
       public dialog: DialogService,
@@ -24,7 +24,9 @@ export class AspekKinerjaReportComponent implements OnInit {
     this.gets();
   }
   gets(){
-    this.service.aspekKinerjaList().subscribe((resp) => {
+    if (this.loading) { this.loading = true; }
+    this.listdata = [];
+    this.service.surveyList().subscribe(resp => {
       if (resp.data.length > 0){
         this.listdata = resp.data;
       } else {
@@ -46,7 +48,7 @@ export class AspekKinerjaReportComponent implements OnInit {
       });
     });
   }
-  detail(e: any){
-    this.router.navigate(['/report/aspek-kinerja', e.id, 'survey', e.survey_ids]);
+  pilih(e: any){
+    this.router.navigate(['/report/aspek-dimensi', e.id]);
   }
 }

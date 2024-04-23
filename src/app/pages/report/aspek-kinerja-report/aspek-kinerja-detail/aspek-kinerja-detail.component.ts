@@ -63,13 +63,10 @@ export class AspekKinerjaDetailComponent implements OnInit {
             this.totalSkorDimensi = this.totalSkorDimensi / resp.data.dimensi.length;
             this.skorRMI = this.totalSkorDimensi + this.penyesuaianSkor;
           }
-          console.log(this.totalSkorDimensi);
         }
         if (resp.data.summary.length > 0){
           this.summary = resp.data.summary[0];
         }
-        console.log(this.summary);
-        console.log(resp);
         this.skeletonVisible = false;
       }, (error: any) => {
         this.skeletonVisible = false;
