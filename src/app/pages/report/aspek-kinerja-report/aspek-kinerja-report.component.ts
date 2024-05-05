@@ -49,4 +49,7 @@ export class AspekKinerjaReportComponent implements OnInit {
   detail(e: any){
     this.router.navigate(['/report/aspek-kinerja', e.id, 'survey', e.survey_ids]);
   }
+  add(){
+    this.router.navigate(['/report/aspek-kinerja/form-aspek-kinerja']);
+  }
 }

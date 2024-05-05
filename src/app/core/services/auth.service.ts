@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -11,7 +12,7 @@ export class AuthenticationService {
 	login(credentials: any) {
 		return this.http.post<any>(`${environment.url}web/session/authenticate`, credentials);
 	}
-	storeLocal(data: any) {
+	storeLocal(data: any): void {
 		localStorage.setItem('login-session', JSON.stringify(data));
 	}
 	getTokenInfo() {
@@ -23,7 +24,24 @@ export class AuthenticationService {
 	getUser() {
 		return JSON.parse(localStorage.getItem('user'));
 	}
-
+	isSuperAdmin(){
+		let session = JSON.parse(this.getAccessToken());
+		if(session){
+			let allowed_companies = session.user_companies.allowed_companies;
+			if(Object.keys(allowed_companies).length > 1) {
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+	current_company(){
+		let session = JSON.parse(this.getAccessToken());
+		if(session){
+			return session.user_companies.current_company;
+		}
+		return 0;
+	}
 	logout() {
 			localStorage.removeItem('login-session');
 	}

@@ -2,14 +2,25 @@ import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import {BehaviorSubject} from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class HelpersService {
+  private infoSurvey = new BehaviorSubject({});
+  public _infoSurvey = this.infoSurvey.asObservable();
 
+  private surveySelected = new BehaviorSubject(<any>null);
+  public _surveySelected = this.surveySelected.asObservable();
   constructor() { }
+  setSurveySelected(e: number){
+    this.surveySelected.next(e);
+  }
+  setInfoSurvey(e: any): void{
+    this.infoSurvey.next(e);
+  }
   exportCSV(csvContent: any,  filename: string){
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');

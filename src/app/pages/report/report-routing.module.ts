@@ -10,13 +10,16 @@ import {AspekDimensiComponent} from 'src/app/pages/report/aspek-dimensi/aspek-di
 import {
   AspekDimensiDetailComponent
 } from 'src/app/pages/report/aspek-dimensi/aspek-dimensi-detail/aspek-dimensi-detail.component';
+import {
+  FormAspekKinerjComponent
+} from 'src/app/pages/report/aspek-kinerja-report/form-aspek-kinerj/form-aspek-kinerj.component';
 
 const routes: Routes = [
   {
     path: 'adjust-aspek-dimensi',
     component: AdjustAspekDimensiComponent,
     canActivate: [CanActiveGuardService],
-    data: {setTitle: 'Adjust Aspek Dimensi'}
+    data: {setTitle: 'Detail Aspek Dimensi'}
   },
   {
     path: 'aspek-dimensi',
@@ -41,6 +44,18 @@ const routes: Routes = [
     component: AspekKinerjaDetailComponent,
     canActivate: [CanActiveGuardService],
     data: {setTitle: 'Report Ringkasan Hasil Penilaian RMI'}
+  },
+  {
+    path: 'aspek-kinerja/form-aspek-kinerja/:id',
+    component: FormAspekKinerjComponent,
+    canActivate: [CanActiveGuardService],
+    data: {setTitle: 'Form Aspek Kinerja'}
+  },
+  {
+    path: 'aspek-kinerja/form-aspek-kinerja',
+    component: FormAspekKinerjComponent,
+    canActivate: [CanActiveGuardService],
+    data: {setTitle: 'Form Aspek Kinerja'}
   }
 ];
 

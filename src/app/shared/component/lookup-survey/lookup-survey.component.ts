@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MessageService} from 'primeng/api';
 import {MasterService} from 'src/app/core/services/master.service';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {AuthenticationService} from 'src/app/core/services/auth.service';
+import {logger} from 'codelyzer/util/logger';
 
 @Component({
   selector: 'app-lookup-survey',
@@ -20,6 +22,7 @@ export class LookupSurveyComponent implements OnInit, OnDestroy {
       public dialog: DialogService,
       public config: DynamicDialogConfig,
       public ref: DynamicDialogRef,
+      private authService: AuthenticationService
   ) {
   }
   ngOnInit(): void {
@@ -28,7 +31,7 @@ export class LookupSurveyComponent implements OnInit, OnDestroy {
   gets(){
     if (this.loading) { this.loading = true; }
     this.listdata = [];
-    this.service.surveyList().subscribe(resp => {
+    this.service.surveyList(this.authService.isSuperAdmin() ? {} : {company_id: this.authService.current_company()}).subscribe(resp => {
       if (resp.data.length > 0){
         this.listdata = resp.data;
       } else {

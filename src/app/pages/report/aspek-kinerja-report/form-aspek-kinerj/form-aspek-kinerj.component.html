@@ -1,0 +1,163 @@
+<div class="card">
+    <div class="p-fluid">
+        <div class="p-col-12">
+            <div class="card">
+                <div class="p-col-12">
+                    <div class="p-d-flex p-jc-between">
+                        <div></div>
+                        <div>
+                              <span class="p-input-icon-left p-ml-auto">
+                                <button (click)="back()" pButton pRipple type="button" icon="pi pi-angle-left" iconPos="left" label="Kembali" class="p-button-outlined p-mr-2 p-mb-2 p-button-custom"></button>
+                              </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12">
+            <div class="card">
+                <div class="p-fluid">
+                    <form [formGroup]="forms">
+                        <div class="p-col-12">
+                            <div class="p-field p-grid p-mb-0">
+                                <div class="p-col-8">
+                                    <input pInputText type="text" [(ngModel)]="survey_name" [readOnly]="true" [ngModelOptions]="{standalone: true}"/>
+                                </div>
+                                <div class="p-col-2">
+                                    <button (click)="findSurvey()" pButton pRipple type="button" label="Pilih Survey"  iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-col-12">
+                            <div class="p-col-6">
+                                <div class="p-field p-mb-4">
+                                    <span class="p-float-label">
+                                      <input type="text" pInputText formControlName="name" required>
+                                      <label>Nama Aspek Kinerja</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-col-12">
+                            <div class="p-field p-grid p-mb-0">
+                                <div class="p-col-3">
+                                    <div class="p-col-12">
+                                        <div class="p-field p-mb-4">
+                                            <span class="p-float-label">
+                                                <p-dropdown inputId="dropdown"
+                                                            [autoDisplayFirst]="false"
+                                                            [options]="finalRatings"
+                                                            [(ngModel)]="finalRatingSelected"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            (onChange)="onChangeFinalRating($event.value)"
+                                                            optionLabel="name"></p-dropdown>
+                                                <label for="dropdown">Final Rating</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="p-col-12">
+                                        <div class="p-field p-mb-4">
+                                            <span class="p-float-label">
+                                            <p-dropdown inputId="dropdown"
+                                                        [autoDisplayFirst]="false"
+                                                        [options]="kompositRisikos"
+                                                        [(ngModel)]="kompositRisikoSelected"
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        (onChange)="onChangeKompositRisiko($event.value)"
+                                                        optionLabel="name"></p-dropdown>
+                                            <label for="dropdown">Peringkat Komposit Risiko</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="p-col-12">
+                                        <div class="p-field p-mb-4">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText formControlName="total_rating_value" required>
+                                              <label>Total Nilai</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="p-col-12">
+                                        <div class="p-field p-mb-4">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText formControlName="score_adjustment" required>
+                                              <label>Penyesuaian Skor</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-col-3">
+                                    <div class="p-col-12">
+                                        <div class="p-field p-mb-4">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText formControlName="aspect_conversion_value" required readonly>
+                                              <label>Nilai Konversi</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="p-col-12">
+                                        <div class="p-field p-mb-4">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText formControlName="composite_risk_conversion_value" required readonly>
+                                              <label>Nilai Konversi</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-col-3">
+                                    <div class="p-col-12">
+                                        <div class="p-field p-mb-4">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText formControlName="final_rating_weight" (input)="calculate()" required>
+                                              <label>Bobot (%)</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="p-col-12">
+                                        <div class="p-field p-mb-4">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText formControlName="composite_risk_weight" (input)="calculate()" required>
+                                              <label>Bobot (%)</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-col-3">
+                                    <div class="p-col-12">
+                                        <div class="p-field p-mb-4">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText formControlName="conversion_rating_value" required readonly>
+                                              <label>Nilai Konversi x Bobot</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="p-col-12">
+                                        <div class="p-field p-mb-4">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText formControlName="conversion_risk_value" required readonly>
+                                              <label>Nilai Konversi x Bobot</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="p-grid">
+                        <div class="p-col">
+                            <p-messages [value]="msgs"></p-messages>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer p-d-flex p-jc-between">
+                    <div></div>
+                    <div>
+                        <button (click)="simpan()" [disabled]="!forms.valid" pButton pRipple type="button" label="Simpan" icon="pi pi-save" iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
+                        <button (click)="back()" pButton pRipple type="button" label="Batal" icon="pi pi-times" iconPos="left" class="p-button-outlined p-button-danger p-mr-2 p-mb-2"></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

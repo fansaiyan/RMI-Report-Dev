@@ -1,12 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DialogService} from 'primeng/dynamicdialog';
 import {LookupSurveyComponent} from 'src/app/shared/component/lookup-survey/lookup-survey.component';
-import {MessageService} from 'primeng/api';
-import {
-  AdjustAspekDimensiDetailComponent
-} from 'src/app/pages/report/adjust-aspek-dimensi/adjust-aspek-dimensi-detail/adjust-aspek-dimensi-detail.component';
+import {MenuItem, MessageService} from 'primeng/api';
 import {ReportService} from 'src/app/core/services/report.service';
-import {Table} from 'primeng/table';
 import {HelpersService} from 'src/app/core/services/helpers.service';
 
 @Component({
@@ -14,22 +10,20 @@ import {HelpersService} from 'src/app/core/services/helpers.service';
   templateUrl: './adjust-aspek-dimensi.component.html',
   styleUrls: ['./adjust-aspek-dimensi.component.scss']
 })
-export class AdjustAspekDimensiComponent implements OnInit {
+export class AdjustAspekDimensiComponent implements OnInit, OnDestroy {
+  activeIndex: number = 0;
   surveySelected: any = null;
   survey_name = '';
-  listdata: any[] = [];
-  loading = false;
-  msgs: any[] = [];
-  @ViewChild('dt', {static: false}) table: Table;
-  @ViewChild('dt', {static: false}) dt: HTMLTableElement;
+  buttonOpsi: MenuItem[];
   constructor(
       public dialog: DialogService,
       private service: ReportService,
       private messageService: MessageService,
       private helper: HelpersService
   ) { }
-
-  ngOnInit(): void {
+  ngOnInit(): void {this.buttonOpsi = [
+    {label: 'All Correspondence', icon: 'pi pi-file-excel', command: (event) => {this.allCorrespondence(event)}}
+  ];
   }
   findSurvey(){
     const ref = this.dialog.open(LookupSurveyComponent, {
@@ -41,110 +35,49 @@ export class AdjustAspekDimensiComponent implements OnInit {
       if (resp){
         this.surveySelected = resp;
         this.survey_name = this.surveySelected.name;
-        this.gets();
+        this.helper.setSurveySelected(this.surveySelected);
       } else {
         this.surveySelected = null;
         this.survey_name = '';
-        this.listdata = [];
+        this.helper.setSurveySelected(null);
       }
     });
   }
-  gets(){
-    if (this.surveySelected){
-      this.service.adjustAspekDimensi({survey_id: this.surveySelected.id}).subscribe((resp) => {
-        if (resp.data.length > 0){
-          this.listdata = resp.data;
-        } else {
-          this.messageService.add({
-            key: 'toast-notif',
-            severity: 'info',
-            summary: 'Informasi',
-            detail: 'Data Tidak Tesedia'
+  clickOpsi(e: any){
+    this.buttonOpsi.forEach((f: any) => {
+      f.state = e;
+    });
+  }
+  allCorrespondence(event: any) {
+    let e: any = event.item.state;
+    this.service.adjustAspekDimensiDetailAllRows({survey_id: e.id}).subscribe((resp) => {
+      if(resp.data.length){
+        let data = resp.data;
+        let rows = [];
+        data.forEach((f: any) => {
+          rows.push({
+            'No' : f.no,
+            'Nama Survey' : f.survey_name,
+            'Company': f.company,
+            'Dimensi' : f.dimensi,
+            'Sub Dimensi' : f.subdimensi,
+            'Parameter': f.parametername,
+            'User' : f.user,
+            'Department': f.department,
+            'Value': f.value
           });
-        }
-        this.loading = false;
-      }, (error: any) => {
-        this.loading = false;
-        this.messageService.add({
-          key: 'toast-notif',
-          severity: 'error',
-          summary: 'Error',
-          detail: error.error,
         });
+        this.helper.exportExcel(rows, 'adjust_aspek_dimensi(All Correspondence)');
+      }
+    }, (error: any) => {
+      this.messageService.add({
+        key: 'toast-notif',
+        severity: 'error',
+        summary: 'Error',
+        detail: error.error,
       });
-    }
-  }
-  exportCSV() {
-    const data = this.table;
-    let csvContent = 'No;Nama Survey;Dimensi;Sub Dimensi;Parameter Name;Avg;Min;Max;Range\n';
-    if (data.filteredValue){
-      data.filteredValue.forEach((row: any) => {
-        csvContent += `${row.no};${row.survey_name};${row.dimensi};${row.subdimensi};${row.parametername};${row.avgvalue};${row.minvalue};${row.maxvalue};${row.rangevalue}\n`;
-      });
-    } else {
-      data.value.forEach((row: any) => {
-        csvContent += `${row.no};${row.survey_name};${row.dimensi};${row.subdimensi};${row.parametername};${row.avgvalue};${row.minvalue};${row.maxvalue};${row.rangevalue}\n`;
-      });
-    }
-    this.helper.exportCSV(csvContent, 'adjust_aspek_dimensi');
-  }
-  exportPdf() {
-    const data = this.table;
-    const columns = ['No', 'Nama Survey', 'Dimensi', 'Sub Dimensi','Parameter Name', 'Avg', 'Min', 'Max', 'Range'];
-    const rows = [];
-    if (data.filteredValue){
-      data.filteredValue.forEach((row: any) => {
-        rows.push([row.no, row.survey_name, row.dimensi, row.subdimensi, row.parametername, row.avgvalue, row.minvalue, row.maxvalue, row.rangevalue]);
-      });
-    } else {
-      data.value.forEach((row: any) => {
-        rows.push([row.no, row.survey_name, row.dimensi, row.subdimensi, row.parametername, row.avgvalue, row.minvalue, row.maxvalue, row.rangevalue]);
-      });
-    }
-    this.helper.exportPDF(columns, rows, 'adjust_aspek_dimensi', this.dt);
-  }
-  exportExcel() {
-    const data = this.table;
-    const rows = [];
-    if (data.filteredValue){
-      data.filteredValue.forEach((row: any) => {
-        rows.push({
-          'No' : row.no,
-          'Nama Survey' : row.survey_name,
-          'Dimensi' : row.dimensi,
-          'Sub Dimensi' : row.subdimensi,
-          'Parameter Name' : row.parametername,
-          'Avg' : row.avgvalue,
-          'Min' : row.minvalue,
-          'Max' : row.maxvalue,
-          'Range' : row.rangevalue
-        });
-      });
-    } else {
-      data.value.forEach((row: any) => {
-        rows.push({
-          'No' : row.no,
-          'Nama Survey' : row.survey_name,
-          'Dimensi' : row.dimensi,
-          'Sub Dimensi' : row.subdimensi,
-          'Parameter Name' : row.parametername,
-          'Avg' : row.avgvalue,
-          'Min' : row.minvalue,
-          'Max' : row.maxvalue,
-          'Range' : row.rangevalue
-        });
-      });
-    }
-    this.helper.exportExcel(rows, 'adjust_aspek_dimensi');
-  }
-  detail(e: any){
-    const ref = this.dialog.open(AdjustAspekDimensiDetailComponent, {
-      width: '900px',
-      header: `Detail : ${e.parametername}`,
-      data: {...e}
     });
-    ref.onClose.subscribe((resp: any) => {
-      console.log(resp);
-    });
+  }
+  ngOnDestroy(): void {
   }
 }

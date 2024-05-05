@@ -14,8 +14,11 @@
                     [globalFilterFields]="['no','survey_name','dimensi','subdimensi','parametername','avgvalue','minvalue','maxvalue','rangevalue']">
                 <ng-template pTemplate="caption">
                     <div class="p-d-flex p-jc-between">
-                        <div>
-                            <button (click)="add()" pButton pRipple type="button" label="Tambah" icon="pi pi-plus-circle" iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
+                        <div *ngIf="listdata.length == 0"></div>
+                        <div *ngIf="listdata.length > 0">
+                            <button type="button" pButton pRipple icon="pi pi-file-o" (click)="exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
                         </div>
                         <div>
                           <span class="p-input-icon-left p-ml-auto">
@@ -27,37 +30,45 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width:5%; text-align: center" [pSortableColumn]="'no'">No
+                        <th style="width:10%; text-align: center" [pSortableColumn]="'no'">No
                             <span style="float: right">
                               <p-sortIcon [field]="'no'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                             </span>
                         </th>
-                        <th style="width: 40%; text-align: center" [pSortableColumn]="'name'">Nama
-                            <span style="float: right">
-                              <p-sortIcon [field]="'name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </span>
-                        </th>
-                        <th style="width: 45%; text-align: center" [pSortableColumn]="'survey_name'">Survey
+                        <th style="width: 20%; text-align: center" [pSortableColumn]="'survey_name'">Nama Survey
                             <span style="float: right">
                               <p-sortIcon [field]="'survey_name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                             </span>
                         </th>
-                        <th style="width: 10%; text-align: center">Pilih</th>
+                        <th style="width: 20%; text-align: center" [pSortableColumn]="'dimensi'">Dimensi
+                            <span style="float: right">
+                              <p-sortIcon [field]="'dimensi'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="width: 40%; text-align: center" [pSortableColumn]="'subdimensi'">Subdimensi
+                            <span style="float: right">
+                              <p-sortIcon [field]="'subdimensi'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="width: 10%; text-align: center" [pSortableColumn]="'avg'">Avg
+                            <span style="float: right">
+                              <p-sortIcon [field]="'avg'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-data>
                     <tr>
                         <td style="text-align: center;">{{ data.no }}</td>
-                        <td style="text-align: left">{{ data.name }}</td>
                         <td style="text-align: left">{{ data.survey_name }}</td>
-                        <td style="text-align: center">
-                            <button (click)="detail(data)" pButton pRipple type="button"  icon="pi pi-search" iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
-                        </td>
+                        <td style="text-align: left">{{ data.dimensi }}</td>
+                        <td style="text-align: left">{{ data.subdimensi }}</td>
+                        <td style="text-align: center">{{ data.avg }}</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage" let-columns>
                     <tr>
-                        <td [attr.colspan]="4" style="text-align: center;">
+                        <td [attr.colspan]="5" style="text-align: center;">
                             Data tidak Tersedia
                         </td>
                     </tr>
