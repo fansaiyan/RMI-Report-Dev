@@ -162,18 +162,18 @@ export class IfService {
   }
 
   delete(url: string, bodyData?: any, reqOpts?: any): Observable<any> {
-    if (reqOpts) {
-      reqOpts.withCredentials = true;
-    } else {
-      reqOpts = {
-        withCredentials: true
-      };
-    }
-
-    if (this.authService.getAccessToken()) {
-      reqOpts.body = bodyData;
-      reqOpts.headers = this.getHeaders();
-    }
+    // if (reqOpts) {
+    //   reqOpts.withCredentials = true;
+    // } else {
+    //   reqOpts = {
+    //     withCredentials: true
+    //   };
+    // }
+    //
+    // if (this.authService.getAccessToken()) {
+    //   reqOpts.body = bodyData;
+    //   reqOpts.headers = this.getHeaders();
+    // }
 
     return this.http.delete<any>(environment.url + url, reqOpts)
       .pipe(map( resp => <any>resp)) as Observable<any>;

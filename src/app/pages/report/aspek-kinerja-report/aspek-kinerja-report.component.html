@@ -52,6 +52,8 @@
                         <td style="text-align: left">{{ data.survey_name }}</td>
                         <td style="text-align: center">
                             <button (click)="detail(data)" pButton pRipple type="button"  icon="pi pi-search" iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
+                            <button (click)="edit(data)" pButton pRipple type="button"  icon="pi pi-pencil" iconPos="left" class="p-button-outlined p-button-warning p-mr-2 p-mb-2"></button>
+                            <button (click)="delete(data)" pButton pRipple type="button"  icon="pi pi-trash" iconPos="left" class="p-button-outlined p-button-danger p-mr-2 p-mb-2"></button>
                         </td>
                     </tr>
                 </ng-template>

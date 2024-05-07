@@ -30,10 +30,19 @@ export class MasterService {
     let qparam = param ? param : {};
     return this.ifService.get(`api/survey-list`, param ? param : {}) as Observable<any>;
   }
+  surveyByid(id: number): Observable<any> {
+    return this.ifService.get(`api/survey-by-id/${id}`) as Observable<any>;
+  }
   aspekKinerjaList(): Observable<any> {
     return this.ifService.get(`api/aspek-kinerja-list`) as Observable<any>;
   }
+  aspekKinerjaById(id: number): Observable<any> {
+    return this.ifService.get(`api/aspek-kinerja-by-id/${id}`) as Observable<any>;
+  }
   postAspekKinerja(postBody: any): Observable<any>{
     return this.ifService.post(`api/aspek-kinerja-create`, postBody);
+  }
+  postAspekKinerjaDelete(id: any): Observable<any>{
+    return this.ifService.delete(`api/aspek-kinerja-delete/${id}`);
   }
 }
