@@ -5,6 +5,7 @@ import {Message, MessageService} from 'primeng/api';
 import {LookupSurveyComponent} from 'src/app/shared/component/lookup-survey/lookup-survey.component';
 import {DialogService} from 'primeng/dynamicdialog';
 import {MasterService} from 'src/app/core/services/master.service';
+import {AuthenticationService} from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-form-aspek-kinerj',
@@ -26,8 +27,10 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
       public dialog: DialogService,
       private service: MasterService,
       private messageService: MessageService,
+      private auth: AuthenticationService
   ) {
     this.forms = this.fb.group({
+      uid: this.auth.getTokenInfo()["uid"],
       name: '',
       survey_ids: [0, [Validators.required, Validators.min(1)]],
       aspect_value: [0, [Validators.required, Validators.min(1)]],
@@ -146,7 +149,15 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
   simpan(){
     if(this.forms.valid){
       this.service.postAspekKinerja(this.forms.value).subscribe((resp) => {
-        console.log(resp);
+        if(resp.status == 200){
+          this.messageService.add({
+            key: 'toast-notif',
+            severity: 'success',
+            summary: 'Berhasil',
+            detail: 'Data Berhasil Input'
+          });
+          this.route.navigate(['report/aspek-kinerja']);
+        }
       },(error: any) => {
         this.messageService.add({
           key: 'toast-notif',

@@ -96,17 +96,17 @@ export class IfService {
 
   // tslint:disable-next-line: max-line-length
   post(url: string, body: any, reqOpts?: any, searchParam?: any): Observable<any> {
-    if (reqOpts) {
-      reqOpts.withCredentials = true;
-    } else {
-      reqOpts = {
-        withCredentials: true
-      };
-    }
+    // if (reqOpts) {
+    //   reqOpts.withCredentials = true;
+    // } else {
+    //   reqOpts = {
+    //     withCredentials: true
+    //   };
+    // }
 
-    if (this.authService.getAccessToken()) {
-      reqOpts.headers = this.getHeaders(reqOpts.headers);
-    }
+    // if (this.authService.getAccessToken()) {
+    //   reqOpts.headers = this.getHeaders(reqOpts.headers);
+    // }
 
     if (searchParam) {
       const bodyUrl = this.getSearchParams(searchParam).toString();
