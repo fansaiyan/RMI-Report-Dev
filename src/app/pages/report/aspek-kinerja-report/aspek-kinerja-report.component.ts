@@ -4,6 +4,7 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import {MasterService} from 'src/app/core/services/master.service';
 import {Router} from '@angular/router';
 import {PopupLoadingComponent} from 'src/app/shared/popup-loading/popup-loading.component';
+import {AuthenticationService} from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-aspek-kinerja-report',
@@ -20,13 +21,14 @@ export class AspekKinerjaReportComponent implements OnInit {
       private messageService: MessageService,
       private router: Router,
       private confirmationService: ConfirmationService,
+      private authService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
     this.gets();
   }
   gets(){
-    this.service.aspekKinerjaList().subscribe((resp) => {
+    this.service.aspekKinerjaList(this.authService.isSuperAdmin() ? {} : {company_id: this.authService.current_company()}).subscribe((resp) => {
       if (resp.data.length > 0){
         this.listdata = resp.data;
       } else {

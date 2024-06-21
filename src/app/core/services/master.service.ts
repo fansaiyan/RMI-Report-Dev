@@ -33,8 +33,8 @@ export class MasterService {
   surveyByid(id: number): Observable<any> {
     return this.ifService.get(`api/survey-by-id/${id}`) as Observable<any>;
   }
-  aspekKinerjaList(): Observable<any> {
-    return this.ifService.get(`api/aspek-kinerja-list`) as Observable<any>;
+  aspekKinerjaList(param?: any): Observable<any> {
+    return this.ifService.get(`api/aspek-kinerja-list`, param ? param : {}) as Observable<any>;
   }
   aspekKinerjaById(id: number): Observable<any> {
     return this.ifService.get(`api/aspek-kinerja-by-id/${id}`) as Observable<any>;
