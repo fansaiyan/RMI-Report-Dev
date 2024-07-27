@@ -12,6 +12,7 @@ import { FormAspekKinerjComponent } from './aspek-kinerja-report/form-aspek-kine
 import { AdParameterComponent } from './adjust-aspek-dimensi/ad-parameter/ad-parameter.component';
 import { AdDimensiComponent } from './adjust-aspek-dimensi/ad-dimensi/ad-dimensi.component';
 import { AdSubdimensiComponent } from './adjust-aspek-dimensi/ad-subdimensi/ad-subdimensi.component';
+import { AdAllcorrespondenceComponent } from './adjust-aspek-dimensi/ad-allcorrespondence/ad-allcorrespondence.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AdSubdimensiComponent } from './adjust-aspek-dimensi/ad-subdimensi/ad-s
     FormAspekKinerjComponent,
     AdParameterComponent,
     AdDimensiComponent,
-    AdSubdimensiComponent
+    AdSubdimensiComponent,
+    AdAllcorrespondenceComponent
   ],
   imports: [
     CoreModule,

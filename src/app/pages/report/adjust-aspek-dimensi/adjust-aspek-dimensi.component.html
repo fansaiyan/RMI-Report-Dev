@@ -32,6 +32,11 @@
                         <app-ad-parameter></app-ad-parameter>
                     </ng-template>
                 </p-tabPanel>
+                <p-tabPanel header="All Correspondence" leftIcon="pi pi-check-square" [cache]="false">
+                    <ng-template pTemplate="content">
+                        <app-ad-allcorrespondence></app-ad-allcorrespondence>
+                    </ng-template>
+                </p-tabPanel>
             </p-tabView>
         </div>
     </div>
