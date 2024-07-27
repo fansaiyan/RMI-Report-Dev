@@ -54,8 +54,6 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.getFinalRating();
-    this.getKompositRisiko();
   }
   getKinerja(){
     if (this.id){
@@ -79,6 +77,8 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
             score_adjustment: data['score_adjustment']
           });
           this.getSurvey(this.forms.value.survey_ids);
+          this.getFinalRating();
+          this.getKompositRisiko();
         }
       });
     }
