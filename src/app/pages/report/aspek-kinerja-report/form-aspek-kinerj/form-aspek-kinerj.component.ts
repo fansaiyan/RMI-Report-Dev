@@ -81,6 +81,9 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
           this.getKompositRisiko();
         }
       });
+    } else {
+      this.getFinalRating();
+      this.getKompositRisiko();
     }
   }
   findSurvey(){
