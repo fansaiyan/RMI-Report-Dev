@@ -177,14 +177,14 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
     }
 
     let score_adjustment = 0;
-    let total_rating_value = this.forms.value.conversion_rating_value + this.forms.value.conversion_risk_value
-    if (0 < this.forms.value.total_rating_value && this.forms.value.total_rating_value <= 50) {
+    let total_rating_value = this.forms.value.conversion_rating_value + this.forms.value.conversion_risk_value;
+    if (total_rating_value <= 50) {
       score_adjustment = -1.00;
-    } else if (50 < this.forms.value.total_rating_value && this.forms.value.total_rating_value <= 65) {
+    } else if (total_rating_value <= 65) {
       score_adjustment = -0.75;
-    } else if (65 < this.forms.value.total_rating_value && this.forms.value.total_rating_value <= 80) {
+    } else if (total_rating_value <= 80) {
       score_adjustment = -0.50;
-    } else if (80 < this.forms.value.total_rating_value && this.forms.value.total_rating_value <= 90) {
+    } else if (total_rating_value <= 90) {
       score_adjustment = -0.25;
     } else {
       score_adjustment = 0.00;
