@@ -14,6 +14,8 @@ export class FormCalculateIcrComponent implements OnInit, OnDestroy {
   forms: FormGroup;
   initialForm: any;
   msgs: Message[] = [];
+  resultPeringkat: string = '';
+  result: any = null;
   constructor(
       public dialog: DialogService,
       public config: DynamicDialogConfig,
@@ -38,7 +40,7 @@ export class FormCalculateIcrComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
   }
-  simpan(){
+  calculate(){
     if (this.forms.valid){
       const overlay = this.dialog.open(PopupLoadingComponent, {
         data: {
@@ -49,8 +51,11 @@ export class FormCalculateIcrComponent implements OnInit, OnDestroy {
       const payment = parseFloat(this.forms.value.payment);
       const rate = ebit / payment;
       this.service.icrByRate({rate: rate}).subscribe((resp: any) => {
+        if(resp.data?.length > 0){
+          this.resultPeringkat = resp.data[0].name;
+          this.result = resp;
+        }
         overlay.close(resp);
-        this.ref.close({...resp});
       }, (error: any) => {
         overlay.close(true);
         this.msgs = [];
@@ -63,6 +68,10 @@ export class FormCalculateIcrComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+  ok(){
+    this.ngOnDestroy();
+    this.ref.close(this.result);
   }
   batal(){
     this.ngOnDestroy();
