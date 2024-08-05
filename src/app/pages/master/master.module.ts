@@ -6,6 +6,7 @@ import { ParameterDimensiComponent } from './parameter-dimensi/parameter-dimensi
 import { ParameterGroupComponent } from './parameter-group/parameter-group.component';
 import { FinalRatingComponent } from './final-rating/final-rating.component';
 import { KompositResikoComponent } from './komposit-resiko/komposit-resiko.component';
+import { IcrComponent } from './icr/icr.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { KompositResikoComponent } from './komposit-resiko/komposit-resiko.compo
     ParameterDimensiComponent,
     ParameterGroupComponent,
     FinalRatingComponent,
-    KompositResikoComponent
+    KompositResikoComponent,
+    IcrComponent
   ],
   imports: [
     CoreModule,

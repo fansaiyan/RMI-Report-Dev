@@ -23,6 +23,12 @@ export class MasterService {
   finalRating(): Observable<any>{
     return this.ifService.get(`api/final-rating`) as Observable<any>;
   }
+  icr(): Observable<any>{
+    return this.ifService.get(`api/interest-coverage-ratio`) as Observable<any>;
+  }
+  icrByRate(param: any): Observable<any>{
+    return this.ifService.get(`api/interest-coverage-ratio-by-rate`, param ? param : {}) as Observable<any>;
+  }
   kompositResiko(): Observable<any>{
     return this.ifService.get(`api/komposit-resiko`) as Observable<any>;
   }

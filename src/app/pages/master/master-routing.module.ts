@@ -5,6 +5,7 @@ import {ParameterDimensiComponent} from './parameter-dimensi/parameter-dimensi.c
 import {ParameterGroupComponent} from './parameter-group/parameter-group.component';
 import {FinalRatingComponent} from './final-rating/final-rating.component';
 import {KompositResikoComponent} from './komposit-resiko/komposit-resiko.component';
+import {IcrComponent} from 'src/app/pages/master/icr/icr.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,12 @@ const routes: Routes = [
     component: KompositResikoComponent,
     canActivate: [CanActiveGuardService],
     data: {setTitle: 'Komposit Resiko'}
+  },
+  {
+    path: 'icr',
+    component: IcrComponent,
+    canActivate: [CanActiveGuardService],
+    data: {setTitle: 'Interest Coverage Ratio'}
   },
 ];
 

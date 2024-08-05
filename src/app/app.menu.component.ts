@@ -26,6 +26,7 @@ export class AppMenuComponent implements OnInit {
                         {label: 'Parameter Group', icon: 'pi pi-fw pi-id-card', routerLink: ['/master/parameter-group']},
                         {label: 'Final Rating', icon: 'pi pi-fw pi-id-card', routerLink: ['/master/final-rating']},
                         {label: 'Komposit Resiko', icon: 'pi pi-fw pi-id-card', routerLink: ['/master/komposit-resiko']},
+                        {label: 'Interest Coverage Ratio', icon: 'pi pi-fw pi-id-card', routerLink: ['/master/icr']},
                     ]
                 },
                 {
