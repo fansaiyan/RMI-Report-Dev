@@ -70,10 +70,15 @@
                               <p-sortIcon [field]="'value'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                             </span>
                         </th>
+                        <th style="text-align: center" [pSortableColumn]="'filename'">File Name
+                            <span style="float: right">
+                              <p-sortIcon [field]="'filename'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-data>
-                    <tr>
+                    <tr [ngStyle]="{'background-color': data.filename === null ? 'red' : '', 'color': data.filename === null ? 'white' : ''}">
                         <td style="text-align: center;">{{ data.no }}</td>
                         <td style="text-align: left">{{ data.survey_name }}</td>
                         <td style="text-align: left">{{ data.dimensi }}</td>
@@ -82,11 +87,12 @@
                         <td style="text-align: center">{{ data.user }}</td>
                         <td style="text-align: center">{{ data.department }}</td>
                         <td style="text-align: center">{{ data.value }}</td>
+                        <td style="text-align: center">{{ data.filename }}</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage" let-columns>
                     <tr>
-                        <td [attr.colspan]="8" style="text-align: center;">
+                        <td [attr.colspan]="9" style="text-align: center;">
                             Data tidak Tersedia
                         </td>
                     </tr>
