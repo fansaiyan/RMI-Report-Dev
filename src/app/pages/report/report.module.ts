@@ -13,6 +13,7 @@ import { AdParameterComponent } from './adjust-aspek-dimensi/ad-parameter/ad-par
 import { AdDimensiComponent } from './adjust-aspek-dimensi/ad-dimensi/ad-dimensi.component';
 import { AdSubdimensiComponent } from './adjust-aspek-dimensi/ad-subdimensi/ad-subdimensi.component';
 import { AdAllcorrespondenceComponent } from './adjust-aspek-dimensi/ad-allcorrespondence/ad-allcorrespondence.component';
+import { FormCalculateIcrComponent } from './aspek-kinerja-report/form-calculate-icr/form-calculate-icr.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AdAllcorrespondenceComponent } from './adjust-aspek-dimensi/ad-allcorre
     AdParameterComponent,
     AdDimensiComponent,
     AdSubdimensiComponent,
-    AdAllcorrespondenceComponent
+    AdAllcorrespondenceComponent,
+    FormCalculateIcrComponent
   ],
   imports: [
     CoreModule,

@@ -6,6 +6,9 @@ import {LookupSurveyComponent} from 'src/app/shared/component/lookup-survey/look
 import {DialogService} from 'primeng/dynamicdialog';
 import {MasterService} from 'src/app/core/services/master.service';
 import {AuthenticationService} from 'src/app/core/services/auth.service';
+import {
+  FormCalculateIcrComponent
+} from 'src/app/pages/report/aspek-kinerja-report/form-calculate-icr/form-calculate-icr.component';
 
 @Component({
   selector: 'app-form-aspek-kinerj',
@@ -105,6 +108,29 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
         this.forms.patchValue({
           survey_ids: 0
         });
+      }
+    });
+  }
+  calculateIcr(){
+    const ref = this.dialog.open(FormCalculateIcrComponent, {
+      width: '900px',
+      header: 'Calculate Interest Coverage Ratio',
+      data: {}
+    });
+    ref.onClose.subscribe((resp: any) => {
+      if (resp){
+        if(resp.data?.length > 0){
+          console.log(resp.data[0]);
+          this.finalRatingSelected = this.finalRatings.find(f => f.name == resp.data[0].name);
+        } else {
+          this.finalRatingSelected = null;
+          this.messageService.add({
+            key: 'toast-notif',
+            severity: 'warn',
+            summary: 'Warnning',
+            detail: 'Nilai Tidak Ditemukan',
+          });
+        }
       }
     });
   }

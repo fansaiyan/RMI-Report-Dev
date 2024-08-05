@@ -37,6 +37,11 @@
                                     </span>
                                 </div>
                             </div>
+                            <div class="p-col-2">
+                                <div class="p-field p-mb-4">
+                                    <button *ngIf="surveySelected" (click)="calculateIcr()" pButton pRipple type="button" label="Calculate ICR"  iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
+                                </div>
+                            </div>
                         </div>
                         <div class="p-col-12">
                             <div class="p-field p-grid p-mb-0">
