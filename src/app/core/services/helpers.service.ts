@@ -34,8 +34,24 @@ export class HelpersService {
     }
   }
   exportExcel(rows: any, filename: string){
-    import('xlsx').then(xlsx => {
+    import('xlsx-js-style').then(xlsx => {
       const worksheet = xlsx.utils.json_to_sheet(rows);
+
+      // Define the red style
+      const redCellStyle = { fill: { type: 'pattern', patternType: 'solid', fgColor: { rgb: 'FF0000' }, bgColor: { rgb: 'FF0000' } } };
+
+      // Iterate through rows and apply style if filename is empty
+      const range = xlsx.utils.decode_range(worksheet['!ref'] || 'A1');
+      for (let rowNum = range.s.r + 1; rowNum <= range.e.r; rowNum++) {
+        const row = worksheet[xlsx.utils.encode_cell({ r: rowNum, c: 9 })]; // Assuming filename is in the first column
+        if (row && !row.v) {
+          for (let colNum = range.s.c; colNum <= range.e.c; colNum++) {
+            const cell = xlsx.utils.encode_cell({ r: rowNum, c: colNum });
+            if (!worksheet[cell]) continue; // Skip empty cells
+            worksheet[cell].s = redCellStyle;
+          }
+        }
+      }
       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
       this.saveAsExcelFile(excelBuffer, `${filename}`);

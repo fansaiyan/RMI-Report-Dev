@@ -67,29 +67,29 @@ export class AdAllcorrespondenceComponent implements OnInit, OnDestroy {
   }
   exportCSV() {
     const data = this.table;
-    let csvContent = 'No;Nama Survey;Dimensi;Sub Dimensi;Parameter Name;User;Department;Value\n';
+    let csvContent = 'No;Nama Survey;Dimensi;Sub Dimensi;Parameter Name;User;Department;Value;Fila Name\n';
     if (data.filteredValue){
       data.filteredValue.forEach((row: any) => {
-        csvContent += `${row.no};${row.survey_name};${row.dimensi};${row.subdimensi};${row.parametername};${row.user};${row.department};${row.value}\n`;
+        csvContent += `${row.no};${row.survey_name};${row.dimensi};${row.subdimensi};${row.parametername};${row.user};${row.department};${row.value};${row.filename}\n`;
       });
     } else {
       data.value.forEach((row: any) => {
-        csvContent += `${row.no};${row.survey_name};${row.dimensi};${row.subdimensi};${row.parametername};${row.user};${row.department};${row.value}\n`;
+        csvContent += `${row.no};${row.survey_name};${row.dimensi};${row.subdimensi};${row.parametername};${row.user};${row.department};${row.value};${row.filename}\n`;
       });
     }
     this.helper.exportCSV(csvContent, 'adjust_aspek_dimensi(All Correspondence)');
   }
   exportPdf() {
     const data = this.table;
-    const columns = ['No', 'Nama Survey', 'Dimensi', 'Sub Dimensi','Parameter Name', 'User', 'Department', 'Value'];
+    const columns = ['No', 'Nama Survey', 'Dimensi', 'Sub Dimensi','Parameter Name', 'User', 'Department', 'Value', 'File Name'];
     const rows = [];
     if (data.filteredValue){
       data.filteredValue.forEach((row: any) => {
-        rows.push([row.no, row.survey_name, row.dimensi, row.subdimensi, row.parametername, row.user, row.department, row.value]);
+        rows.push([row.no, row.survey_name, row.dimensi, row.subdimensi, row.parametername, row.user, row.department, row.value, row.filename]);
       });
     } else {
       data.value.forEach((row: any) => {
-        rows.push([row.no, row.survey_name, row.dimensi, row.subdimensi, row.parametername, row.user, row.department, row.value]);
+        rows.push([row.no, row.survey_name, row.dimensi, row.subdimensi, row.parametername, row.user, row.department, row.value, row.filename]);
       });
     }
     this.helper.exportPDF(columns, rows, 'adjust_aspek_dimensi(All Correspondence)', this.dt);
@@ -108,7 +108,8 @@ export class AdAllcorrespondenceComponent implements OnInit, OnDestroy {
           'Parameter': row.parametername,
           'User' : row.user,
           'Department': row.department,
-          'Value': row.value
+          'Value': row.value,
+          'File Name': row.filename
         });
       });
     } else {
@@ -122,7 +123,8 @@ export class AdAllcorrespondenceComponent implements OnInit, OnDestroy {
           'Parameter': row.parametername,
           'User' : row.user,
           'Department': row.department,
-          'Value': row.value
+          'Value': row.value,
+          'File Name': row.filename
         });
       });
     }
