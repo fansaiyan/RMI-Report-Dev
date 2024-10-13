@@ -37,6 +37,11 @@
                         <app-ad-allcorrespondence></app-ad-allcorrespondence>
                     </ng-template>
                 </p-tabPanel>
+                <p-tabPanel header="Gap Analyze" leftIcon="pi pi-chart-bar" [cache]="false">
+                    <ng-template pTemplate="content">
+                        <app-gap-analyze></app-gap-analyze>
+                    </ng-template>
+                </p-tabPanel>
             </p-tabView>
         </div>
     </div>

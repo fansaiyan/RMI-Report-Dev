@@ -31,4 +31,23 @@ export class ReportService {
 	penilaianRMI(params: any): Observable<any>{
 		return this.ifService.get(`api/report/hasil-penilaian-rmi`, params) as Observable<any>;
 	}
+    chart1(params: any): Observable<any>{
+        return this.ifService.get(`api/report/chart1`, params) as Observable<any>;
+    }
+    chart2(params: any): Observable<any>{
+        return this.ifService.get(`api/report/chart2`, params) as Observable<any>;
+    }
+    chart3(params: any): Observable<any>{
+        return this.ifService.get(`api/report/chart3`, params) as Observable<any>;
+    }
+    chart4(params: any): Observable<any>{
+        return this.ifService.get(`api/report/chart4`, params) as Observable<any>;
+    }
+    chart5(params: any): Observable<any>{
+        return this.ifService.get(`api/report/chart5`, params) as Observable<any>;
+    }
+    chart6(params: any): Observable<any>{
+        return this.ifService.get(`api/report/chart6`, params) as Observable<any>;
+    }
+
 }

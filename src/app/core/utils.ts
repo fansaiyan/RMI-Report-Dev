@@ -97,3 +97,10 @@ export class CurrencyIDR {
     return currencyPipe.transform(e, 'IDR', '', '0.2-2');
   }
 }
+
+export const generateRandomRGB = () => {
+    const r = Math.floor(Math.random() * 256); // Nilai Red (0-255)
+    const g = Math.floor(Math.random() * 256); // Nilai Green (0-255)
+    const b = Math.floor(Math.random() * 256); // Nilai Blue (0-255)
+    return `${r},${g},${b}`;
+}

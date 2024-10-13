@@ -14,6 +14,13 @@ import { AdDimensiComponent } from './adjust-aspek-dimensi/ad-dimensi/ad-dimensi
 import { AdSubdimensiComponent } from './adjust-aspek-dimensi/ad-subdimensi/ad-subdimensi.component';
 import { AdAllcorrespondenceComponent } from './adjust-aspek-dimensi/ad-allcorrespondence/ad-allcorrespondence.component';
 import { FormCalculateIcrComponent } from './aspek-kinerja-report/form-calculate-icr/form-calculate-icr.component';
+import { GapAnalyzeComponent } from './adjust-aspek-dimensi/gap-analyze/gap-analyze.component';
+import { Chart1Component } from './adjust-aspek-dimensi/gap-analyze/chart1/chart1.component';
+import { Chart2Component } from './adjust-aspek-dimensi/gap-analyze/chart2/chart2.component';
+import { Chart3Component } from './adjust-aspek-dimensi/gap-analyze/chart3/chart3.component';
+import { Chart4Component } from './adjust-aspek-dimensi/gap-analyze/chart4/chart4.component';
+import { Chart5Component } from './adjust-aspek-dimensi/gap-analyze/chart5/chart5.component';
+import { Chart6Component } from './adjust-aspek-dimensi/gap-analyze/chart6/chart6.component';
 
 
 @NgModule({
@@ -29,7 +36,14 @@ import { FormCalculateIcrComponent } from './aspek-kinerja-report/form-calculate
     AdDimensiComponent,
     AdSubdimensiComponent,
     AdAllcorrespondenceComponent,
-    FormCalculateIcrComponent
+    FormCalculateIcrComponent,
+    GapAnalyzeComponent,
+    Chart1Component,
+    Chart2Component,
+    Chart3Component,
+    Chart4Component,
+    Chart5Component,
+    Chart6Component
   ],
   imports: [
     CoreModule,
