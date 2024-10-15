@@ -41,7 +41,7 @@ export class Chart6Component implements OnInit, OnDestroy, OnChanges {
         periode: this.survey.periode,
         jenis_industri: this.survey.jenis_industri
       };
-      this.service.chart5(params).subscribe({
+      this.service.chart6(params).subscribe({
         next:(resp) => {
           if(resp.data.length > 0){
             this.listdata = resp.data;

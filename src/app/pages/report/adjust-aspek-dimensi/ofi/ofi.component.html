@@ -1,0 +1,100 @@
+<div class="card">
+    <div class="p-fluid">
+        <div class="p-col-12">
+            <p-table
+                    [value]="listdata"
+                    [paginator]="true"
+                    [rowHover]="true"
+                    [rows]="10"
+                    #dt
+                    [rowsPerPageOptions]="[10,25,50]"
+                    styleClass="p-datatable-gridlines"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [globalFilterFields]="['no','survey_name','dimensi','subdimensi','parametername','user','department','value']">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-jc-between">
+                        <div *ngIf="listdata.length == 0"></div>
+                        <div *ngIf="listdata.length > 0">
+                            <button type="button" pButton pRipple icon="pi pi-file-o" (click)="exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+                        </div>
+                        <div>
+                          <span class="p-input-icon-left p-ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                          </span>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:5%; text-align: center" [pSortableColumn]="'no'">No
+                            <span style="float: right">
+                              <p-sortIcon [field]="'no'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'survey_name'">Nama Survey
+                            <span style="float: right">
+                              <p-sortIcon [field]="'survey_name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'survey_name'">Periode
+                            <span style="float: right">
+                              <p-sortIcon [field]="'survey_name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'jenis_industri'">Tipe Industri
+                            <span style="float: right">
+                              <p-sortIcon [field]="'jenis_industri'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'dimensi'">Dimensi
+                            <span style="float: right">
+                              <p-sortIcon [field]="'dimensi'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'subdimensi'">Subdimensi
+                            <span style="float: right">
+                              <p-sortIcon [field]="'subdimensi'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'parametername'">Parameter Name
+                            <span style="float: right">
+                              <p-sortIcon [field]="'parametername'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'minvalue'">Current Level
+                            <span style="float: right">
+                              <p-sortIcon [field]="'value'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data>
+                    <tr>
+                        <td style="text-align: center;">{{ data.no }}</td>
+                        <td style="text-align: left">{{ data.survey_name }}</td>
+                        <td style="text-align: center">{{ data.periode }}</td>
+                        <td style="text-align: center">{{ "Industri " + data.jenis_industri }}</td>
+                        <td style="text-align: left">{{ data.dimensi }}</td>
+                        <td style="text-align: left">{{ data.subdimensi }}</td>
+                        <td style="text-align: left">{{ data.parametername }}</td>
+                        <td style="text-align: center">{{ data.minvalue }}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="8" style="text-align: center;">
+                            Data tidak Tersedia
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="p-col-12">
+            <p-messages [value]="msgs"></p-messages>
+        </div>
+    </div>
+</div>

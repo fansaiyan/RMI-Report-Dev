@@ -21,6 +21,7 @@ import { Chart3Component } from './adjust-aspek-dimensi/gap-analyze/chart3/chart
 import { Chart4Component } from './adjust-aspek-dimensi/gap-analyze/chart4/chart4.component';
 import { Chart5Component } from './adjust-aspek-dimensi/gap-analyze/chart5/chart5.component';
 import { Chart6Component } from './adjust-aspek-dimensi/gap-analyze/chart6/chart6.component';
+import { OfiComponent } from './adjust-aspek-dimensi/ofi/ofi.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { Chart6Component } from './adjust-aspek-dimensi/gap-analyze/chart6/chart
     Chart3Component,
     Chart4Component,
     Chart5Component,
-    Chart6Component
+    Chart6Component,
+    OfiComponent
   ],
   imports: [
     CoreModule,

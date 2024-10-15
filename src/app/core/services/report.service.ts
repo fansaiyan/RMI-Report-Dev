@@ -49,5 +49,8 @@ export class ReportService {
     chart6(params: any): Observable<any>{
         return this.ifService.get(`api/report/chart6`, params) as Observable<any>;
     }
+    ofi(params: any): Observable<any>{
+        return this.ifService.get(`api/report/ofi`, params) as Observable<any>;
+    }
 
 }

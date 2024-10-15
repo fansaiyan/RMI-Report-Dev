@@ -5,9 +5,6 @@ import {DialogService} from 'primeng/dynamicdialog';
 import {ReportService} from 'src/app/core/services/report.service';
 import {MessageService} from 'primeng/api';
 import {HelpersService} from 'src/app/core/services/helpers.service';
-import {
-  AdjustAspekDimensiDetailComponent
-} from 'src/app/pages/report/adjust-aspek-dimensi/adjust-aspek-dimensi-detail/adjust-aspek-dimensi-detail.component';
 
 @Component({
   selector: 'app-ad-allcorrespondence',

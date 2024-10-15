@@ -104,3 +104,20 @@ export const generateRandomRGB = () => {
     const b = Math.floor(Math.random() * 256); // Nilai Blue (0-255)
     return `${r},${g},${b}`;
 }
+export const getUniqueDimensiIds = (data: any[]): number[] => {
+    const uniqueDimensiIds = new Set<number>();
+    data.forEach(item => {
+        uniqueDimensiIds.add(item.dimensi_id);
+    });
+    return Array.from(uniqueDimensiIds);
+}
+export const filterMin = (data: any[]): any[] => {
+    const minMinValue = Math.min(...data.map(item => item.minvalue));
+    return data.filter(item => {
+        if (minMinValue < 3) {
+            return item.minvalue <= minMinValue;
+        } else {
+            return item.minvalue === minMinValue;
+        }
+    });
+}
