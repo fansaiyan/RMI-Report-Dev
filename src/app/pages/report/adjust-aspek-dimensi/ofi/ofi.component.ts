@@ -28,12 +28,15 @@ export class OfiComponent implements OnInit, OnDestroy {
       this.surveySelected = r;
       if(this.surveySelected){
         this.get();
+      } else {
+        this.listdata = [];
       }
     });
   }
   ngOnInit(): void {
   }
   get(){
+    this.listdata = [];
     const params = {
       survey_id: this.surveySelected.id,
       periode: this.surveySelected.periode,
