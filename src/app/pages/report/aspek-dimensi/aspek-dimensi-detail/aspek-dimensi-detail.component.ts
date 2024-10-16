@@ -54,6 +54,7 @@ export class AspekDimensiDetailComponent implements OnInit, OnDestroy {
           if (this.avgDimensi > 0) {
             this.avgDimensi = this.avgDimensi / resp.data.length;
           }
+          this.avgDimensi = parseFloat(this.avgDimensi.toFixed(2));
           if (this.avgMax > 0) {
             // this.avgMax = this.avgMax / resp.data.length;
           }
