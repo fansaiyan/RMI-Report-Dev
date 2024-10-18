@@ -33,7 +33,7 @@ export class HelpersService {
       document.body.removeChild(link);
     }
   }
-  exportExcel(rows: any, filename: string){
+  exportExcel(rows: any, filename: string, skip_red?: boolean){
     import('xlsx-js-style').then(xlsx => {
       const worksheet = xlsx.utils.json_to_sheet(rows);
 
@@ -48,7 +48,9 @@ export class HelpersService {
           for (let colNum = range.s.c; colNum <= range.e.c; colNum++) {
             const cell = xlsx.utils.encode_cell({ r: rowNum, c: colNum });
             if (!worksheet[cell]) continue; // Skip empty cells
-            worksheet[cell].s = redCellStyle;
+            if(!skip_red){
+              worksheet[cell].s = redCellStyle;
+            }
           }
         }
       }

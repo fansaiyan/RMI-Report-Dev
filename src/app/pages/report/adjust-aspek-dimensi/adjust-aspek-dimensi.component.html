@@ -8,8 +8,8 @@
                 <div class="p-col-1">
                     <button (click)="findSurvey()" pButton pRipple type="button" label="Pilih Survey"  iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
                 </div>
-                <div class="p-col-1" *ngIf="surveySelected">
-                    <p-splitButton label="Print" icon="pi pi-print" (click)="clickOpsi(surveySelected)" [model]="buttonOpsi" styleClass="p-button-success p-mr-2 p-mb-2"></p-splitButton>
+                <div class="p-col-1">
+                    <p-splitButton label="Print" icon="pi pi-print" [disabled]="buttonOpsi.length == 0" (click)="clickOpsi(surveySelected)" [model]="buttonOpsi" styleClass="p-button-success p-mr-2 p-mb-2"></p-splitButton>
                 </div>
             </div>
         </div>
