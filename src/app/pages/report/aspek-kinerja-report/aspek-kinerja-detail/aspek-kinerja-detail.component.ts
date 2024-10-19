@@ -64,7 +64,11 @@ export class AspekKinerjaDetailComponent implements OnInit {
           });
           if (this.totalSkorDimensi > 0) {
             this.totalSkorDimensi = this.totalSkorDimensi / resp.data.dimensi.length;
-            this.skorRMI = this.totalSkorDimensi + this.penyesuaianSkor;
+            if(this.totalSkorDimensi >= 3){
+              this.skorRMI = this.totalSkorDimensi + this.penyesuaianSkor;
+            } else {
+              this.skorRMI = this.totalSkorDimensi;
+            }
           }
         }
         if (resp.data.summary.length > 0){

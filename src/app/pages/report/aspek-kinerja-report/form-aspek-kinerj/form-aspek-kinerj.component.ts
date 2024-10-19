@@ -120,8 +120,8 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
     ref.onClose.subscribe((resp: any) => {
       if (resp){
         if(resp.data?.length > 0){
-          console.log(resp.data[0]);
           this.finalRatingSelected = this.finalRatings.find(f => f.name == resp.data[0].name);
+          this.onChangeFinalRating({id: this.finalRatingSelected.id, nilai: this.finalRatingSelected.nilai});
         } else {
           this.finalRatingSelected = null;
           this.messageService.add({
