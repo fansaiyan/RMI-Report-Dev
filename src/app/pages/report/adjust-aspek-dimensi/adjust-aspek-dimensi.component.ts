@@ -137,5 +137,7 @@ export class AdjustAspekDimensiComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy(): void {
+    this.surveySelected = null;
+    this.helper.setSurveySelected(null);
   }
 }

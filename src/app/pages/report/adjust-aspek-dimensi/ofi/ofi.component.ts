@@ -14,11 +14,15 @@ import {MessageService} from 'primeng/api';
 export class OfiComponent implements OnInit, OnDestroy {
   surveySelected = null;
   surveyidsub: Subscription;
-  listdata: any[] = [];
+  listdata: any[] = []
+  listdata_detail: any [];
   loading = false;
+  loading_detail = false;
   msgs: any[] = [];
   @ViewChild('dt', {static: false}) table: Table;
   @ViewChild('dt', {static: false}) dt: HTMLTableElement;
+  @ViewChild('dt2', {static: false}) table2: Table;
+  @ViewChild('dt2', {static: false}) dt2: HTMLTableElement;
   constructor(
       private helper: HelpersService,
       private service: ReportService,
@@ -74,67 +78,156 @@ export class OfiComponent implements OnInit, OnDestroy {
       }
     });
   }
-  exportCSV() {
-    const data = this.table;
-    let csvContent = 'No;Nama Survey;Periode,Jenis Industri,Dimensi;Sub Dimensi;Parameter Name;Current Level\n';
-    if (data.filteredValue){
-      data.filteredValue.forEach((row: any) => {
-        csvContent += `${row.no};${row.survey_name};${row.periode};${row.jenis_industri};${row.dimensi};${row.subdimensi};${row.parametername};${row.minvalue}\n`;
-      });
-    } else {
-      data.value.forEach((row: any) => {
-        csvContent += `${row.no};${row.survey_name};${row.periode};${row.jenis_industri};${row.dimensi};${row.subdimensi};${row.parametername};${row.minvalue}\n`;
-      });
-    }
-    this.helper.exportCSV(csvContent, 'Opportunity For Improvement');
-  }
-  exportPdf() {
-    const data = this.table;
-    const columns = ['No', 'Nama Survey', 'Periode','Jenis Industri', 'Dimensi', 'Sub Dimensi','Parameter Name', 'Current Level'];
-    const rows = [];
-    if (data.filteredValue){
-      data.filteredValue.forEach((row: any) => {
-        rows.push([row.no, row.survey_name,row.periode,row.jenis_industri, row.dimensi, row.subdimensi, row.parametername, row.minvalue]);
-      });
-    } else {
-      data.value.forEach((row: any) => {
-        rows.push([row.no, row.survey_name,row.periode,row.jenis_industri, row.dimensi, row.subdimensi, row.parametername, row.minvalue]);
-      });
-    }
-    this.helper.exportPDF(columns, rows, 'Opportunity For Improvement', this.dt);
-  }
-  exportExcel() {
-    const data = this.table;
-    const rows = [];
-    if (data.filteredValue){
-      data.filteredValue.forEach((row: any) => {
-        rows.push({
-          'No' : row.no,
-          'Nama Survey' : row.survey_name,
-          'Periode' : row.periode,
-          'Jenis Industri' : row.jenis_industri,
-          'Dimensi' : row.dimensi,
-          'Sub Dimensi' : row.subdimensi,
-          'Parameter': row.parametername,
-          'Current Level' : row.minvalue
+  exportCSV(isDetail?: boolean) {
+    if(isDetail){
+      const data = this.table2;
+      let csvContent = 'No;Parameter;Level\n';
+      if (data.filteredValue){
+        data.filteredValue.forEach((row: any) => {
+          csvContent += `${row.no};${row.parameter};${row.level}\n`;
         });
-      });
-    } else {
-      data.value.forEach((row: any) => {
-        rows.push({
-          'No' : row.no,
-          'Nama Survey' : row.survey_name,
-          'Periode' : row.periode,
-          'Jenis Industri' : row.jenis_industri,
-          'Dimensi' : row.dimensi,
-          'Sub Dimensi' : row.subdimensi,
-          'Parameter': row.parametername,
-          'Current Level' : row.minvalue
+      } else {
+        data.value.forEach((row: any) => {
+          csvContent += `${row.no};${row.parameter};${row.level}\n`;
         });
-      });
+      }
+      this.helper.exportCSV(csvContent, 'Opportunity For Improvement Detail');
+    } else {
+      const data = this.table;
+      let csvContent = 'No;Nama Survey;Periode,Jenis Industri,Dimensi;Sub Dimensi;Parameter Name;Current Level\n';
+      if (data.filteredValue){
+        data.filteredValue.forEach((row: any) => {
+          csvContent += `${row.no};${row.survey_name};${row.periode};${row.jenis_industri};${row.dimensi};${row.subdimensi};${row.parametername};${row.minvalue}\n`;
+        });
+      } else {
+        data.value.forEach((row: any) => {
+          csvContent += `${row.no};${row.survey_name};${row.periode};${row.jenis_industri};${row.dimensi};${row.subdimensi};${row.parametername};${row.minvalue}\n`;
+        });
+      }
+      this.helper.exportCSV(csvContent, 'Opportunity For Improvement');
     }
-    this.helper.exportExcel(rows, 'Opportunity For Improvement');
+  }
+  exportPdf(isDetail?: boolean) {
+    if(isDetail){
+      const data = this.table2;
+      const columns = ['No', 'Parameter', 'Level'];
+      const rows = [];
+      if (data.filteredValue){
+        data.filteredValue.forEach((row: any) => {
+          rows.push([row.no, row.parameter,row.level]);
+        });
+      } else {
+        data.value.forEach((row: any) => {
+          rows.push([row.no, row.parameter,row.level]);
+        });
+      }
+      this.helper.exportPDF(columns, rows, 'Opportunity For Improvement Detail', this.dt2);
+    } else {
+      const data = this.table;
+      const columns = ['No', 'Nama Survey', 'Periode','Jenis Industri', 'Dimensi', 'Sub Dimensi','Parameter Name', 'Current Level'];
+      const rows = [];
+      if (data.filteredValue){
+        data.filteredValue.forEach((row: any) => {
+          rows.push([row.no, row.survey_name,row.periode,row.jenis_industri, row.dimensi, row.subdimensi, row.parametername, row.minvalue]);
+        });
+      } else {
+        data.value.forEach((row: any) => {
+          rows.push([row.no, row.survey_name,row.periode,row.jenis_industri, row.dimensi, row.subdimensi, row.parametername, row.minvalue]);
+        });
+      }
+      this.helper.exportPDF(columns, rows, 'Opportunity For Improvement', this.dt);
+    }
+  }
+  exportExcel(isDetail?: boolean) {
+    if(isDetail){
+      const data = this.table2;
+      const rows = [];
+      if (data.filteredValue){
+        data.filteredValue.forEach((row: any) => {
+          rows.push({
+            'No' : row.no,
+            'Parameter' : row.parameter,
+            'Level' : row.level
+          });
+        });
+      } else {
+        data.value.forEach((row: any) => {
+          rows.push({
+            'No' : row.no,
+            'Parameter' : row.parameter,
+            'Level' : row.level
+          });
+        });
+      }
+      this.helper.exportExcel(rows, 'Opportunity For Improvement Detail');
+    } else {
+      const data = this.table;
+      const rows = [];
+      if (data.filteredValue){
+        data.filteredValue.forEach((row: any) => {
+          rows.push({
+            'No' : row.no,
+            'Nama Survey' : row.survey_name,
+            'Periode' : row.periode,
+            'Jenis Industri' : row.jenis_industri,
+            'Dimensi' : row.dimensi,
+            'Sub Dimensi' : row.subdimensi,
+            'Parameter': row.parametername,
+            'Current Level' : row.minvalue
+          });
+        });
+      } else {
+        data.value.forEach((row: any) => {
+          rows.push({
+            'No' : row.no,
+            'Nama Survey' : row.survey_name,
+            'Periode' : row.periode,
+            'Jenis Industri' : row.jenis_industri,
+            'Dimensi' : row.dimensi,
+            'Sub Dimensi' : row.subdimensi,
+            'Parameter': row.parametername,
+            'Current Level' : row.minvalue
+          });
+        });
+      }
+      this.helper.exportExcel(rows, 'Opportunity For Improvement');
+    }
+  }
+  onclickExpand(e: any){
+    this.loading_detail = true;
+    this.listdata_detail = [];
+    const params = {
+      paramter_name: e.parametername.substring(0, 50),
+      jenis_industri: e.jenis_industri,
+      level: e.minvalue < 3 ? 3 : e.minvalue + 1
+    }
+    this.service.ofi_detail(params).subscribe({
+      next:(resp) => {
+        if(resp.data.length > 0){
+          this.listdata_detail = resp.data;
+        } else {
+          this.messageService.add({
+            key: 'toast-notif',
+            severity: 'info',
+            summary: 'Informasi',
+            detail: 'Data Tidak Tesedia'
+          });
+        }
+        this.loading_detail = false;
+      },
+      error:(error) => {
+        this.loading_detail = false;
+        this.messageService.add({
+          key: 'toast-notif',
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error,
+        });
+      }
+    });
   }
   ngOnDestroy(): void {
+    this.listdata = [];
+    this.listdata_detail = [];
   }
 }
