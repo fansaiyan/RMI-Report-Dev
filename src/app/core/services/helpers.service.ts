@@ -33,7 +33,7 @@ export class HelpersService {
       document.body.removeChild(link);
     }
   }
-  exportExcel(rows: any, filename: string, skip_red?: boolean){
+  exportExcel(rows: any, filename: string, skip_red?: boolean, rows2?: any){
     import('xlsx-js-style').then(xlsx => {
       const worksheet = xlsx.utils.json_to_sheet(rows);
 
@@ -54,7 +54,30 @@ export class HelpersService {
           }
         }
       }
-      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      let workbook = {
+        Sheets: {
+          'data': worksheet
+        },
+        SheetNames: ['data']
+      };
+      if(rows2){
+        const worksheet2 = xlsx.utils.json_to_sheet(rows2);
+        const range2 = xlsx.utils.decode_range(worksheet2['!ref'] || 'A1');
+        for (let rowNum = range2.s.r + 1; rowNum <= range2.e.r; rowNum++) {
+          const row = worksheet2[xlsx.utils.encode_cell({ r: rowNum, c: 9 })]; // Assuming filename is in the first column
+          if (row && !row.v) {
+            for (let colNum = range2.s.c; colNum <= range2.e.c; colNum++) {
+              const cell = xlsx.utils.encode_cell({ r: rowNum, c: colNum });
+              if (!worksheet2[cell]) continue; // Skip empty cells
+              if(!skip_red){
+                worksheet2[cell].s = redCellStyle;
+              }
+            }
+          }
+        }
+        workbook.Sheets['OFI'] = worksheet2;
+        workbook.SheetNames.push('OFI');
+      }
       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
       this.saveAsExcelFile(excelBuffer, `${filename}`);
     });

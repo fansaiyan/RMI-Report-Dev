@@ -5,6 +5,8 @@ import {HelpersService} from 'src/app/core/services/helpers.service';
 import {ReportService} from 'src/app/core/services/report.service';
 import {filterMin, generateRandomRGB, getUniqueDimensiIds} from 'src/app/core/utils';
 import {MessageService} from 'primeng/api';
+import {PopupLoadingComponent} from 'src/app/shared/popup-loading/popup-loading.component';
+import {DialogService} from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-ofi',
@@ -26,7 +28,8 @@ export class OfiComponent implements OnInit, OnDestroy {
   constructor(
       private helper: HelpersService,
       private service: ReportService,
-      private messageService: MessageService
+      private messageService: MessageService,
+      public dialog: DialogService
   ) {
     this.surveyidsub = this.helper._surveySelected.subscribe(r => {
       this.surveySelected = r;
@@ -163,41 +166,93 @@ export class OfiComponent implements OnInit, OnDestroy {
     } else {
       const data = this.table;
       const rows = [];
-      if (data.filteredValue){
+      const overlay = this.dialog.open(PopupLoadingComponent, {
+        data : {
+          message: 'Exporting Data'
+        }
+      });
+      const params = {
+        parameter_name: "",
+        jenis_industri: "",
+        level: []
+      };
+      if(data.filteredValue){
         data.filteredValue.forEach((row: any) => {
-          rows.push({
-            'No' : row.no,
-            'Nama Survey' : row.survey_name,
-            'Periode' : row.periode,
-            'Jenis Industri' : row.jenis_industri,
-            'Dimensi' : row.dimensi,
-            'Sub Dimensi' : row.subdimensi,
-            'Parameter': row.parametername,
-            'Current Level' : row.minvalue
-          });
+          params.parameter_name += `${row.parametername.trim()}:`;
+          params.jenis_industri = row.jenis_industri;
+          params.level.push(row.minvalue < 3 ? 3 : row.minvalue + 1)
         });
       } else {
         data.value.forEach((row: any) => {
-          rows.push({
-            'No' : row.no,
-            'Nama Survey' : row.survey_name,
-            'Periode' : row.periode,
-            'Jenis Industri' : row.jenis_industri,
-            'Dimensi' : row.dimensi,
-            'Sub Dimensi' : row.subdimensi,
-            'Parameter': row.parametername,
-            'Current Level' : row.minvalue
-          });
+          params.parameter_name += `${row.parametername.trim()}:`;
+          params.jenis_industri = row.jenis_industri;
+          params.level.push(row.minvalue < 3 ? 3 : row.minvalue + 1)
         });
       }
-      this.helper.exportExcel(rows, 'Opportunity For Improvement');
+      this.service.ofi_detail_batch(params).subscribe({
+        next:(resp) => {
+          let row2 = [];
+          if(resp.data.length > 0){
+            resp.data.forEach((f: any) => {
+              row2.push({
+                'No' : f.no,
+                'Dimensi Name' : f.dimensi_name,
+                'Dimensi Group' : f.subdimensi_groupname,
+                'Parameter Name' : f.parameter_name,
+                'Parameter' : f.parameter,
+                'Level' : f.level,
+                'Jenis Industri': f.jenisindustri
+              });
+            });
+          }
+          if (data.filteredValue){
+            data.filteredValue.forEach((row: any) => {
+              rows.push({
+                'No' : row.no,
+                'Nama Survey' : row.survey_name,
+                'Periode' : row.periode,
+                'Jenis Industri' : row.jenis_industri,
+                'Dimensi' : row.dimensi,
+                'Sub Dimensi' : row.subdimensi,
+                'Parameter': row.parametername,
+                'Current Level' : row.minvalue
+              });
+            });
+          } else {
+            data.value.forEach((row: any) => {
+              rows.push({
+                'No' : row.no,
+                'Nama Survey' : row.survey_name,
+                'Periode' : row.periode,
+                'Jenis Industri' : row.jenis_industri,
+                'Dimensi' : row.dimensi,
+                'Sub Dimensi' : row.subdimensi,
+                'Parameter': row.parametername,
+                'Current Level' : row.minvalue
+              });
+            });
+          }
+          overlay.close(true);
+          this.helper.exportExcel(rows, 'Opportunity For Improvement', true, row2);
+        },
+        error:(error) => {
+          overlay.close(true);
+          this.loading_detail = false;
+          this.messageService.add({
+            key: 'toast-notif',
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error,
+          });
+        }
+      });
     }
   }
   onclickExpand(e: any){
     this.loading_detail = true;
     this.listdata_detail = [];
     const params = {
-      paramter_name: e.parametername.substring(0, 50),
+      paramter_name: e.parametername.trim(),
       jenis_industri: e.jenis_industri,
       level: e.minvalue < 3 ? 3 : e.minvalue + 1
     }

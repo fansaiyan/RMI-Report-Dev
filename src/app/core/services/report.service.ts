@@ -55,6 +55,9 @@ export class ReportService {
     ofi_detail(params: any): Observable<any>{
         return this.ifService.get(`api/report/ofi-detail`, params) as Observable<any>;
     }
+    ofi_detail_batch(params: any): Observable<any>{
+        return this.ifService.get(`api/report/ofi-detail-batch`, params) as Observable<any>;
+    }
     all_survey(params: any): Observable<any>{
         return this.ifService.get(`api/report/all-survey-data`, params) as Observable<any>;
     }
