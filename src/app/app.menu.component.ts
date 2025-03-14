@@ -56,7 +56,7 @@ export class AppMenuComponent implements OnInit {
                 {
                     label: 'SMI', icon: 'pi pi-fw pi-list', routerLink: ['/smi'],
                     items: [
-                        {label: 'Survey', icon: 'pi pi-fw pi-list', routerLink: ['/smi/survey']},
+                        {label: 'Self Assessment', icon: 'pi pi-fw pi-list', routerLink: ['/smi/survey']},
                         {label: 'Upload Document', icon: 'pi pi-fw pi-upload', routerLink: ['/smi/upload-document']}
                     ]
                 }
