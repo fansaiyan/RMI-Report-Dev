@@ -35,12 +35,28 @@ export class AuthenticationService {
 		}
 		return false;
 	}
+	isAssessor(): boolean{
+		let session = JSON.parse(this.getAccessToken());
+		if(session){
+			let groups = session.user_groups;
+			console.log(groups)
+			return groups.some(group => group === "Assessor");
+		}
+		return false;
+	}
 	current_company(){
 		let session = JSON.parse(this.getAccessToken());
 		if(session){
 			return session.user_companies.current_company;
 		}
 		return 0;
+	}
+	email(){
+		let session = JSON.parse(this.getAccessToken());
+		if(session){
+			return session.username;
+		}
+		return null;
 	}
 	logout() {
 			localStorage.removeItem('login-session');

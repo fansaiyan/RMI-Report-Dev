@@ -1,0 +1,87 @@
+<div class="card">
+    <div class="p-fluid">
+        <div class="p-col-12">
+            <p-table
+                    [value]="listdata"
+                    [paginator]="true"
+                    [rowHover]="true"
+                    [rows]="30"
+                    #dt
+                    [rowsPerPageOptions]="[30,50,75,100]"
+                    styleClass="p-datatable-gridlines"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [globalFilterFields]="['sub_dimensi_name','self_asesment','uploaded_doc','diff','final_result','remark']">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-jc-between">
+                        <div>
+                        </div>
+                        <div>
+                          <span class="p-input-icon-left p-ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                          </span>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 20%; text-align: center" [pSortableColumn]="'sub_dimensi_name'">Criteria
+                            <span style="float: right">
+                              <p-sortIcon [field]="'sub_dimensi_name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style=" text-align: center" [pSortableColumn]="'self_asesment'">Self Assessment
+                            <span style="float: right">
+                              <p-sortIcon [field]="'self_asesment'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'uploaded_doc'">Uploaded Doc
+                            <span style="float: right">
+                              <p-sortIcon [field]="'uploaded_doc'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'diff'">Diff
+                            <span style="float: right">
+                              <p-sortIcon [field]="'diff'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'final_result'">Final Result
+                            <span style="float: right">
+                              <p-sortIcon [field]="'final_result'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'remark'">Remarks
+                            <span style="float: right">
+                              <p-sortIcon [field]="'remark'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="width: 10%; text-align: center">Pilih</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data>
+                    <tr>
+                        <td style="text-align: left;">{{ data.sub_dimensi_name}}</td>
+                        <td style="text-align: center;">{{ data.self_asesment }}</td>
+                        <td style="text-align: center">{{ data.uploaded_doc }}</td>
+                        <td style="text-align: center">{{ data.diff }}</td>
+                        <td style="text-align: center">{{ data.final_result }}</td>
+                        <td style="text-align: center">{{ data.remark }}</td>
+                        <td style="text-align: center">
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="7" style="text-align: center;">
+                            Data tidak Tersedia
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="p-col-12">
+            <p-messages [value]="msgs"></p-messages>
+        </div>
+    </div>
+</div>

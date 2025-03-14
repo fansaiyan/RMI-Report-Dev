@@ -40,7 +40,7 @@ import { AuthenticationService } from './core/services/auth.service';
                                 <img src="assets/customs/assets/nouser.png" alt="mirage-layout" />
                             </span>
                                 <span class="profile-info-wrapper">
-                                <h3>{{ userInfo.partner_display_name }}</h3>
+                                <h3>{{ userInfo.name }}</h3>
                                 <span>{{ companies.name }}</span>
                             </span>
                             </a>
@@ -53,7 +53,7 @@ import { AuthenticationService } from './core/services/auth.service';
                                     <div class="profile">
                                         <img src="assets/customs/assets/nouser.png" alt="mirage-layout"
                                              width="40" />
-                                        <h1>{{ userInfo.partner_display_name }}</h1>
+                                        <h1>{{ userInfo.name }}</h1>
                                         <span>{{ companies.name }}</span>
                                     </div>
                                 </li>
@@ -70,7 +70,7 @@ import { AuthenticationService } from './core/services/auth.service';
 																					<img src="assets/customs/assets/nouser.png" alt="mirage-layout" />
 																			</span>
                                 <span class="profile-info-wrapper">
-																					<h3>{{ userInfo.partner_display_name }}</h3>
+																					<h3>{{ userInfo.name }}</h3>
 																					<span>{{ companies.name }}</span>
 																			</span>
                             </a>
@@ -82,7 +82,7 @@ import { AuthenticationService } from './core/services/auth.service';
                                     </div>
                                     <div class="profile">
                                         <img src="assets/customs/assets/nouser.png" alt="mirage-layout" width="45" />
-                                        <h1>{{ userInfo.partner_display_name }}</h1>
+                                        <h1>{{ userInfo.name }}</h1>
                                         <span>{{ companies.name }}</span>
                                     </div>
                                 </li>

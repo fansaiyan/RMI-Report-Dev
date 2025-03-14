@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
-import { DialogService } from 'primeng/dynamicdialog';
-import { IfService } from 'src/app/core/services/if.service';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PopupLoadingComponent } from '../popup-loading/popup-loading.component';
+import {SMIService} from 'src/app/core/services/smi.service';
 @Component({
   selector: 'app-upload-dokumen',
   templateUrl: './upload-dokumen.component.html',
@@ -24,7 +24,9 @@ export class UploadDokumenComponent implements OnInit, OnChanges {
   constructor(
     private fb: FormBuilder,
     public dialog: DialogService,
-    private ifService: IfService
+    private smiService: SMIService,
+    public config: DynamicDialogConfig,
+    public ref: DynamicDialogRef
   ) {
     this.forms = this.fb.group({
       files: [null, Validators.required]
@@ -50,28 +52,28 @@ export class UploadDokumenComponent implements OnInit, OnChanges {
     
   }
   selectFiles(){
-    if(this.forms.valid){
+    if(this.forms.valid) {
       let files = this.forms.value.files[0];
       let formPost = new FormData();
-      if(files){
-        formPost.append('FileSelected', files);
-        formPost.append('Direktory', this.direktori);
+      if (files) {
+        formPost.append('file', files);
+        formPost.append('email', this.config.data.email);
+        formPost.append('userid', this.config.data.userid);
+        formPost.append('dokumen_id', this.config.data.dokumen_id);
         const overlay = this.dialog.open(PopupLoadingComponent, {
-          data : {
+          data: {
             message: 'Uploading File...'
           }
         });
-        this.ifService.post(`RepoFile`, formPost).subscribe((resp: any) => {
+        this.smiService.upload_file(formPost).subscribe((resp: any) => {
           overlay.close(true);
-          if(resp.idfile){
-            this.callback.emit(resp);
+          if (resp) {
+            this.ref.close(resp)
           }
         }, (error) => {
           overlay.close(true);
         })
-      }  
+      }
     }
-    
-    
   }
 }

@@ -1,0 +1,29 @@
+<div class="p-grid">
+    <div class="p-col-12 p-pb-0">
+        <div class="card">
+            <div class="p-field p-grid p-mb-0">
+                <div class="p-md-12 p-lg-4">
+                    <div class="card" *ngIf="survey">
+                        <p class="p-text-bold">{{survey?.title.en_US}}<p>
+                        <p>Silakan Klik Tautan Berikut untuk mengisi Survey SMI. <a href="{{survey_sim_link}}" target="_blank">KLIK</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12">
+        <div class="card">
+            <p-tabView orientation="left" [(activeIndex)]="activeIndex">
+                <p-tabPanel header="Report" leftIcon="pi pi-pencil" [cache]="false">
+                    <ng-template pTemplate="content">
+                        <app-final-calculation
+                                [survey]="survey"
+                                [email]="email"
+                                [smi_survey_code]="smi_survey_code">
+                        </app-final-calculation>
+                    </ng-template>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+    </div>
+</div>
