@@ -53,7 +53,7 @@ export class FinalCalculationComponent implements OnInit, OnChanges {
         key: 'toast-notif',
         severity: 'error',
         summary: 'Error',
-        detail: error.error,
+        detail: error.message,
       });
     });
   }
