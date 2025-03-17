@@ -55,7 +55,7 @@ export class UploadDokumenComponent implements OnInit {
         key: 'toast-notif',
         severity: 'error',
         summary: 'Error',
-        detail: error.message,
+        detail: error.error.message
       });
     });
   }
