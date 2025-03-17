@@ -30,11 +30,23 @@ export class AppMenuComponent implements OnInit {
                     ]
                 },
                 {
-                    label: 'Report', icon: 'pi pi-fw pi-print', routerLink: ['/report'],
+                    label: 'RMI', icon: 'pi pi-fw pi-list', routerLink: ['/rmi'],
                     items: [
-                        {label: 'Detail Aspek Dimensi', icon: 'pi pi-fw pi-id-card', routerLink: ['/report/adjust-aspek-dimensi']},
-                        {label: 'Aspek Dimensi', icon: 'pi pi-fw pi-id-card', routerLink: ['/report/aspek-dimensi']},
-                        {label: 'Aspek Kinerja', icon: 'pi pi-fw pi-id-card', routerLink: ['/report/aspek-kinerja']}
+                        {
+                            label: 'Report', icon: 'pi pi-fw pi-list', routerLink: ['/rmi/report'],
+                            items: [
+                                {label: 'Detail Aspek Dimensi', icon: 'pi pi-fw pi-id-card', routerLink: ['/rmi/report/adjust-aspek-dimensi']},
+                                {label: 'Aspek Dimensi', icon: 'pi pi-fw pi-id-card', routerLink: ['/rmi/report/aspek-dimensi']},
+                                {label: 'Aspek Kinerja', icon: 'pi pi-fw pi-id-card', routerLink: ['/rmi/report/aspek-kinerja']}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    label: 'SMI', icon: 'pi pi-fw pi-list', routerLink: ['/smi'],
+                    items: [
+                        {label: 'Self Assessment', icon: 'pi pi-fw pi-list', routerLink: ['/smi/survey']},
+                        {label: 'Upload Document', icon: 'pi pi-fw pi-upload', routerLink: ['/smi/upload-document']}
                     ]
                 }
             )
