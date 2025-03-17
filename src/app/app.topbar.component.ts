@@ -26,7 +26,7 @@ import { AuthenticationService } from './core/services/auth.service';
 <!--                                    <img src="assets/customs/assets/LogoP.png" alt="" style="height: 4rem;"/>-->
                                 </div>
                                 <div class="p-as-center p-ml-2">
-                                    <span class="" style="color:black;font-size: 1.5rem;">RMI SURVEY</span><br>
+                                    <span class="" style="color:black;font-size: 1.5rem;">RAPID - Rumah Aplikasi Indonesia</span><br>
                                 </div>
                             </div>
                         </div>
