@@ -1,12 +1,23 @@
 <div class="p-grid">
     <div class="p-col-12 p-pb-0">
         <div class="card">
-            <div class="p-field p-grid p-mb-0">
+            <div class="p-field p-grid p-mb-0" *ngIf="!isAsesor">
                 <div class="p-md-12 p-lg-4">
                     <div class="card" *ngIf="survey">
                         <p class="p-text-bold">{{survey?.title.en_US}}<p>
                         <p>Silakan Klik Tautan Berikut untuk mengisi Survey SMI. <a href="{{survey_sim_link}}" target="_blank">KLIK</a></p>
                     </div>
+                </div>
+            </div>
+            <div class="p-field p-grid p-mb-0" *ngIf="isAsesor">
+                <div class="p-col-4">
+                    <input pInputText type="text" [(ngModel)]="companyEmail" [readOnly]="true" style="width: 100%"/>
+                </div>
+                <div class="p-col-1">
+                    <button (click)="findCompanyEmail()" pButton pRipple type="button" label="Company"  iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
+                </div>
+                <div class="p-col-1">
+
                 </div>
             </div>
         </div>
@@ -19,7 +30,8 @@
                         <app-final-calculation
                                 [survey]="survey"
                                 [email]="email"
-                                [smi_survey_code]="smi_survey_code">
+                                [smi_survey_code]="smi_survey_code"
+                                [isAsesor]="isAsesor">
                         </app-final-calculation>
                     </ng-template>
                 </p-tabPanel>

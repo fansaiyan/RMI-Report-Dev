@@ -29,7 +29,12 @@ export class SMIService {
     return this.http.get(`${environment.url_smi}api/final_calculation`, {params: params}) as Observable<any>;
   }
   put_final_calculation(params: any): Observable<any> {
-    return this.http.post(`${environment.url_smi}api/update_final_calculation`, params) as Observable<any>;
+    return this.http.post(`${environment.url_smi}api/update_final_calculation`, params, {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      withCredentials: false
+    }).pipe(map( resp => <any>resp)) as Observable<any>;
   }
   get_email_entry_survey(params: any): Observable<any> {
     return this.http.get(`${environment.url_smi}api/email_entry_survey`, {params: params}) as Observable<any>;

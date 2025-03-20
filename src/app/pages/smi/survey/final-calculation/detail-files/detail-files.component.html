@@ -1,0 +1,97 @@
+<div class="card">
+    <div class="p-fluid">
+        <div class="p-col-12">
+            <p-table
+                    [value]="listdata"
+                    [paginator]="true"
+                    [rowHover]="true"
+                    [rows]="20"
+                    #dt
+                    [rowsPerPageOptions]="[25,50,75,100]"
+                    styleClass="p-datatable-gridlines"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [globalFilterFields]="['sequence_id','criteria','dokumen_name','file_name']">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-jc-between">
+                        <div>
+                        </div>
+                        <div>
+                      <span class="p-input-icon-left p-ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                      </span>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 5%; text-align: center" [pSortableColumn]="'sequence_id'">No
+                            <span style="float: right">
+                          <p-sortIcon [field]="'sequence_id'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        </th>
+                        <th style=" text-align: center" [pSortableColumn]="'criteria'">Criteria
+                            <span style="float: right">
+                          <p-sortIcon [field]="'criteria'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'dokumen_name'">Document Name
+                            <span style="float: right">
+                          <p-sortIcon [field]="'dokumen_name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'file_name'">File Name
+                            <span style="float: right">
+                          <p-sortIcon [field]="'file_name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'is_uploaded'">Is Uploaded
+                            <span style="float: right">
+                          <p-sortIcon [field]="'is_uploaded'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'bobot'">Bobot
+                            <span style="float: right">
+                          <p-sortIcon [field]="'bobot'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'value'">Value
+                            <span style="float: right">
+                          <p-sortIcon [field]="'value'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
+                        </th>
+                        <th style="width: 10%; text-align: center">Pilih</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data>
+                    <tr>
+                        <td style="text-align: center;">{{ data.sequence_id}}</td>
+                        <td style="text-align: left;">{{ data.criteria }}</td>
+                        <td style="text-align: left">{{ data.dokumen_name }}</td>
+                        <td style="text-align: left">{{ data.file_name }}</td>
+                        <td style="text-align: center">
+                            <i *ngIf="data.is_uploaded" class="fa fa-check" style="color: #1e7e34"></i>
+                            <i *ngIf="!data.is_uploaded" class="fa fa-close" style="color: #5d0c28"></i>
+                        </td>
+                        <td style="text-align: center">{{ data.bobot }}</td>
+                        <td style="text-align: center">{{ data.value }}</td>
+                        <td style="text-align: center">
+                            <button *ngIf="data.is_uploaded" (click)="download(data)" pButton pRipple type="button" icon="pi pi-download" pTooltip="Download" iconPos="left" class="p-button-warning p-button-sm"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="8" style="text-align: center;">
+                            Data tidak Tersedia
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="p-col-12">
+            <p-messages [value]="msgs"></p-messages>
+        </div>
+    </div>
+</div>

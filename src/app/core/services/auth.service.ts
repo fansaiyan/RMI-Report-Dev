@@ -57,6 +57,13 @@ export class AuthenticationService {
 		}
 		return null;
 	}
+	name() {
+		let session = JSON.parse(this.getAccessToken());
+		if(session){
+			return session.name;
+		}
+		return null;
+	}
 	logout() {
 			localStorage.removeItem('login-session');
 	}

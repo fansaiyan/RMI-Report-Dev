@@ -31,26 +31,23 @@ export class LookupSurveyComponent implements OnInit, OnDestroy {
   gets(){
     if (this.loading) { this.loading = true; }
     this.listdata = [];
+    this.msgs = [];
     this.service.surveyList(this.authService.isSuperAdmin() ? {} : {company_id: this.authService.current_company()}).subscribe(resp => {
       if (resp.data.length > 0){
         this.listdata = resp.data;
       } else {
-        this.messageService.add({
-          key: 'toast-notif',
-          severity: 'info',
-          summary: 'Informasi',
-          detail: 'Data Tidak Tesedia'
-        });
+        this.msgs.push({ severity: 'info', summary: 'Informasi', detail: 'Data Tidak Tesedia' });
       }
       this.loading = false;
     }, (error: any) => {
       this.loading = false;
-      this.messageService.add({
-        key: 'toast-notif',
-        severity: 'error',
-        summary: 'Error',
-        detail: error.error,
-      });
+      if (Array.isArray(error.error.error)){
+        for (let i = 0; i < error.error.error.length; i++){
+          this.msgs.push({ severity: 'error', summary: 'error', detail: error.error.error[i] });
+        }
+      } else {
+        this.msgs.push({ severity: 'error', summary: 'error', detail: error.error });
+      }
     });
   }
   pilih(e: any){

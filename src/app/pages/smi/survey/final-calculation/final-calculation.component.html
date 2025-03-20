@@ -11,10 +11,16 @@
                     styleClass="p-datatable-gridlines"
                     [showCurrentPageReport]="true"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                    [globalFilterFields]="['sub_dimensi_name','self_asesment','uploaded_doc','diff','final_result','remark']">
+                    [globalFilterFields]="['sub_dimensi_name','self_asesment','uploaded_doc','diff','final_result']">
                 <ng-template pTemplate="caption">
                     <div class="p-d-flex p-jc-between">
                         <div>
+                            <div *ngIf="listdata.length == 0"></div>
+                            <div *ngIf="listdata.length > 0">
+                                <button type="button" pButton pRipple icon="pi pi-file-o" (click)="exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+                                <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+                                <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+                            </div>
                         </div>
                         <div>
                           <span class="p-input-icon-left p-ml-auto">
@@ -51,12 +57,7 @@
                               <p-sortIcon [field]="'final_result'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                             </span>
                         </th>
-                        <th style="text-align: center" [pSortableColumn]="'remark'">Remarks
-                            <span style="float: right">
-                              <p-sortIcon [field]="'remark'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </span>
-                        </th>
-                        <th style="width: 10%; text-align: center">Pilih</th>
+                        <th style="width: 10%; text-align: center" *ngIf="isAsesor">Pilih</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-data>
@@ -66,14 +67,15 @@
                         <td style="text-align: center">{{ data.uploaded_doc }}</td>
                         <td style="text-align: center">{{ data.diff }}</td>
                         <td style="text-align: center">{{ data.final_result }}</td>
-                        <td style="text-align: center">{{ data.remark }}</td>
-                        <td style="text-align: center">
+                        <td style="text-align: center" *ngIf="isAsesor">
+                            <button (click)="edit(data)" pButton pRipple type="button" icon="pi pi-pencil" pTooltip="Edit" iconPos="left" class="p-button-warning p-button-sm p-mr-2"></button>
+                            <button (click)="detail(data)" pButton pRipple type="button" icon="pi pi-search" pTooltip="Detail Files" iconPos="left" class="p-button-secondary p-button-sm"></button>
                         </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage" let-columns>
                     <tr>
-                        <td [attr.colspan]="7" style="text-align: center;">
+                        <td [attr.colspan]="isAsesor ? 6 : 5" style="text-align: center;">
                             Data tidak Tersedia
                         </td>
                     </tr>

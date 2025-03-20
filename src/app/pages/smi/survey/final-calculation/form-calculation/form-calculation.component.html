@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="p-fluid">
+        <form [formGroup]="forms">
+            <div class="p-field p-grid">
+                <div class="p-col-12">
+                    <div class="p-field p-mb-4">
+                        <span class="p-float-label">
+                          <input type="number" min="0" pInputText formControlName="final_result" required>
+                          <label>Final Result</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-mb-4">
+                        <span class="p-float-label">
+                          <textarea type="text" rows="4" pInputTextarea formControlName="remark"></textarea>
+                          <label>Keterangan</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="p-grid">
+            <div class="p-col">
+                <p-messages [value]="msgs"></p-messages>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer p-d-flex p-jc-between">
+        <div></div>
+        <div>
+            <button (click)="simpan()" [disabled]="!forms.valid" pButton pRipple type="button" label="Simpan" icon="pi pi-save" iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
+            <button (click)="batal()" pButton pRipple type="button" label="Batal" icon="pi pi-times" iconPos="left" class="p-button-outlined p-button-danger p-mr-2 p-mb-2"></button>
+        </div>
+    </div>
+</div>

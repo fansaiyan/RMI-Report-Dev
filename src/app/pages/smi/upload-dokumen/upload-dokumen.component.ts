@@ -47,7 +47,6 @@ export class UploadDokumenComponent implements OnInit, OnDestroy {
     });
     ref.onClose.subscribe((resp: any) => {
       if (resp) {
-        console.log(resp);
         this.companyEmail = `${resp.company_name} - ${resp.user_name} - ${resp.user_email}`;
         this.companyEmailSelected = resp;
         this.gets(resp.user_email);
