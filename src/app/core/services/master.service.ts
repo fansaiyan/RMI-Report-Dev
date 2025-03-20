@@ -51,4 +51,7 @@ export class MasterService {
   postAspekKinerjaDelete(id: any): Observable<any>{
     return this.ifService.delete(`api/aspek-kinerja-delete/${id}`);
   }
+  getCompanyUserEmail(): Observable<any>{
+    return this.ifService.get(`api/company_user_email`) as Observable<any>;
+  }
 }

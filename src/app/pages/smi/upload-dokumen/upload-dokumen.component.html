@@ -1,6 +1,21 @@
-<div class="card">
-    <div class="p-fluid">
-        <div class="p-col-12">
+<div class="p-grid">
+    <div class="p-col-12 p-pb-0" *ngIf="isAsesor">
+        <div class="card">
+            <div class="p-field p-grid p-mb-0">
+                <div class="p-col-4">
+                    <input pInputText type="text" [(ngModel)]="companyEmail" [readOnly]="true" style="width: 100%"/>
+                </div>
+                <div class="p-col-1">
+                    <button (click)="findCompanyEmail()" pButton pRipple type="button" label="Company"  iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
+                </div>
+                <div class="p-col-1">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12">
+        <div class="card">
             <p-table
                     [value]="listdata"
                     [paginator]="true"
@@ -17,10 +32,10 @@
                         <div>
                         </div>
                         <div>
-                          <span class="p-input-icon-left p-ml-auto">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
-                          </span>
+                      <span class="p-input-icon-left p-ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                      </span>
                         </div>
                     </div>
                 </ng-template>
@@ -28,40 +43,40 @@
                     <tr>
                         <th style="width: 5%; text-align: center" [pSortableColumn]="'sequence_id'">No
                             <span style="float: right">
-                              <p-sortIcon [field]="'sequence_id'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </span>
+                          <p-sortIcon [field]="'sequence_id'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
                         </th>
                         <th style=" text-align: center" [pSortableColumn]="'criteria'">Criteria
                             <span style="float: right">
-                              <p-sortIcon [field]="'criteria'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </span>
+                          <p-sortIcon [field]="'criteria'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
                         </th>
                         <th style="text-align: center" [pSortableColumn]="'dokumen_name'">Document Name
                             <span style="float: right">
-                              <p-sortIcon [field]="'dokumen_name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </span>
+                          <p-sortIcon [field]="'dokumen_name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
                         </th>
                         <th style="text-align: center" [pSortableColumn]="'file_name'">File Name
                             <span style="float: right">
-                              <p-sortIcon [field]="'file_name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </span>
+                          <p-sortIcon [field]="'file_name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
                         </th>
                         <th style="text-align: center" [pSortableColumn]="'is_uploaded'">Is Uploaded
                             <span style="float: right">
-                              <p-sortIcon [field]="'is_uploaded'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </span>
+                          <p-sortIcon [field]="'is_uploaded'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
                         </th>
                         <th style="text-align: center" [pSortableColumn]="'bobot'">Bobot
                             <span style="float: right">
-                              <p-sortIcon [field]="'bobot'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </span>
+                          <p-sortIcon [field]="'bobot'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
                         </th>
                         <th style="text-align: center" [pSortableColumn]="'value'">Value
                             <span style="float: right">
-                              <p-sortIcon [field]="'value'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </span>
+                          <p-sortIcon [field]="'value'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </span>
                         </th>
-                        <th style="width: 10%; text-align: center">Pilih</th>
+                        <th style="width: 10%; text-align: center" *ngIf="!isAsesor">Pilih</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-data>
@@ -76,7 +91,7 @@
                         </td>
                         <td style="text-align: center">{{ data.bobot }}</td>
                         <td style="text-align: center">{{ data.value }}</td>
-                        <td style="text-align: center">
+                        <td style="text-align: center" *ngIf="!isAsesor">
                             <button (click)="upload(data)" pButton pRipple type="button" icon="pi pi-upload" pTooltip="Upload" iconPos="left" class="p-button-success p-button-sm p-mr-2"></button>
                             <button *ngIf="data.is_uploaded" (click)="download(data)" pButton pRipple type="button" icon="pi pi-download" pTooltip="Download" iconPos="left" class="p-button-warning p-button-sm"></button>
                         </td>
@@ -84,15 +99,15 @@
                 </ng-template>
                 <ng-template pTemplate="emptymessage" let-columns>
                     <tr>
-                        <td [attr.colspan]="8" style="text-align: center;">
+                        <td [attr.colspan]="isAsesor ? 7 : 8" style="text-align: center;">
                             Data tidak Tersedia
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
         </div>
-        <div class="p-col-12">
-            <p-messages [value]="msgs"></p-messages>
-        </div>
+    </div>
+    <div class="p-col-12">
+        <p-messages [value]="msgs"></p-messages>
     </div>
 </div>

@@ -10,6 +10,8 @@ import { ChartColumn1Component } from './charts/chart-column1/chart-column1.comp
 import { ChartPieNonRupiahComponent } from './charts/chart-pie-non-rupiah/chart-pie-non-rupiah.component';
 import { InputMaskModule } from '@ngneat/input-mask';
 import { LookupSurveyComponent } from './component/lookup-survey/lookup-survey.component';
+import { LookupCompanyEmailComponent } from './component/lookup-company-email/lookup-company-email.component';
+import {MessageService} from 'primeng/api';
 @NgModule({
   declarations: [
     PopupLoadingComponent,
@@ -18,7 +20,8 @@ import { LookupSurveyComponent } from './component/lookup-survey/lookup-survey.c
     ChartColumnCompareComponent,
     ChartColumn1Component,
     ChartPieNonRupiahComponent,
-    LookupSurveyComponent
+    LookupSurveyComponent,
+    LookupCompanyEmailComponent
   ],
   imports: [
     CoreModule,
@@ -33,7 +36,8 @@ import { LookupSurveyComponent } from './component/lookup-survey/lookup-survey.c
     ChartColumnCompareComponent,
     ChartColumn1Component,
     ChartPieNonRupiahComponent,
-    LookupSurveyComponent
+    LookupSurveyComponent,
+    LookupCompanyEmailComponent
   ],
   providers: [
     ProgressSpinner

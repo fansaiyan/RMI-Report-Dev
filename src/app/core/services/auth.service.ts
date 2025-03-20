@@ -39,7 +39,6 @@ export class AuthenticationService {
 		let session = JSON.parse(this.getAccessToken());
 		if(session){
 			let groups = session.user_groups;
-			console.log(groups)
 			return groups.some(group => group === "Assessor");
 		}
 		return false;
