@@ -77,7 +77,7 @@ export class AppMenuComponent implements OnInit {
             )
         }
         if(this.authService.isAssessor()){
-            this.model[2].items.push(
+            this.model[this.authService.isSuperAdmin() ? 3 : 2].items.push(
                 {label: 'Report Summary', icon: 'pi pi-fw pi-print', routerLink: ['/smi/report-summary']},
             )
         }
