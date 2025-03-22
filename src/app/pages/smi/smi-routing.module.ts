@@ -23,7 +23,7 @@ const routes: Routes = [
     path: 'report-summary',
     component: ReportSummaryComponent,
     canActivate: [CanActiveGuardService],
-    data: {setTitle: 'Report Summray Final Result'}
+    data: {setTitle: 'Report Summary Final Result'}
   }
 ];
 

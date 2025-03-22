@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MasterService} from 'src/app/core/services/master.service';
 import { environment } from 'src/environments/environment';
 import {SMIService} from 'src/app/core/services/smi.service';
 import {MessageService} from 'primeng/api';
+import {HelpersService} from 'src/app/core/services/helpers.service';
+import {Table} from 'primeng/table';
 const defaultSurveyData = {
   strategy: 0,
   partnership: 0,
@@ -34,10 +36,13 @@ export class ReportSummaryComponent implements OnInit {
   msgs: any[] = [];
   loading = false;
   listdata = [];
+  @ViewChild('dt', {static: false}) table: Table;
+  @ViewChild('dt', {static: false}) dt: HTMLTableElement;
   constructor(
       private service: MasterService,
       private smiService: SMIService,
       private messageService: MessageService,
+      private helper: HelpersService
   ) { }
 
   ngOnInit(): void {
@@ -159,5 +164,68 @@ export class ReportSummaryComponent implements OnInit {
         });
       }
     });
+  }
+  exportCSV() {
+    const data = this.table;
+    let csvContent = 'Company;Communication;Competencies;Motivation;Operation;Partnership;Strategy;Technology;Total Score\n';
+    if (data.filteredValue){
+      data.filteredValue.forEach((row: any) => {
+        csvContent += `${row.company_name};${row.communication};${row.competencies};${row.motivation};${row.operation};${row.partnership};${row.strategy};${row.technology};${row.total_score}\n`;
+      });
+    } else {
+      data.value.forEach((row: any) => {
+        csvContent += `${row.company_name};${row.communication};${row.competencies};${row.motivation};${row.operation};${row.partnership};${row.strategy};${row.technology};${row.total_score}\n`;
+      });
+    }
+    this.helper.exportCSV(csvContent, 'Report Summary Final Result');
+  }
+  exportPdf() {
+    const data = this.table;
+    const columns = ['Company','Communication','Competencies','Motivation','Operation','Partnership','Strategy','Technology','Total Score'];
+    const rows = [];
+    if (data.filteredValue){
+      data.filteredValue.forEach((row: any) => {
+        rows.push([row.company_name,row.communication,row.competencies,row.motivation,row.operation,row.partnership,row.strategy,row.technology,row.total_score]);
+      });
+    } else {
+      data.value.forEach((row: any) => {
+        rows.push([row.company_name,row.communication,row.competencies,row.motivation,row.operation,row.partnership,row.strategy,row.technology,row.total_score]);
+      });
+    }
+    this.helper.exportPDF(columns, rows, 'Report Summary Final Result', this.dt);
+  }
+  exportExcel() {
+    const data = this.table;
+    const rows = [];
+    if (data.filteredValue){
+      data.filteredValue.forEach((row: any) => {
+        rows.push({
+          'Company' : row.company_name,
+          'Communication' : row.communication,
+          'Competencies Doc' : row.competencies,
+          'Motivation' : row.motivation,
+          'Operation' : row.operation,
+          'Partnership' : row.partnership,
+          'Strategy' : row.strategy,
+          'Technology' : row.technology,
+          'Total Score' : row.total_score
+        });
+      });
+    } else {
+      data.value.forEach((row: any) => {
+        rows.push({
+          'Company' : row.company_name,
+          'Communication' : row.communication,
+          'Competencies Doc' : row.competencies,
+          'Motivation' : row.motivation,
+          'Operation' : row.operation,
+          'Partnership' : row.partnership,
+          'Strategy' : row.strategy,
+          'Technology' : row.technology,
+          'Total Score' : row.total_score
+        });
+      });
+    }
+    this.helper.exportExcel(rows, 'Report Summary Final Result');
   }
 }
