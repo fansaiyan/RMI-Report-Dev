@@ -1,0 +1,99 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <div class="card">
+            <p-table
+                    [value]="listdata"
+                    [paginator]="true"
+                    [rowHover]="true"
+                    [rows]="20"
+                    #dt
+                    [rowsPerPageOptions]="[25,50,75,100]"
+                    styleClass="p-datatable-gridlines"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [globalFilterFields]="['company_name','communication','competencies','motivation','operation','partnership','strategy','technology','total_score']">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-jc-between">
+                        <div>
+                        </div>
+                        <div>
+                      <span class="p-input-icon-left p-ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                      </span>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 15%; text-align: center" [pSortableColumn]="'company_name'">Company
+                            <span style="float: right">
+                              <p-sortIcon [field]="'company_name'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style=" text-align: center" [pSortableColumn]="'communication'">Communication
+                            <span style="float: right">
+                              <p-sortIcon [field]="'communication'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'competencies'">Competencies
+                            <span style="float: right">
+                              <p-sortIcon [field]="'competencies'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'motivation'">Motivation
+                            <span style="float: right">
+                              <p-sortIcon [field]="'motivation'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'operation'">Operation
+                            <span style="float: right">
+                              <p-sortIcon [field]="'operation'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'partnership'">Partnership
+                            <span style="float: right">
+                              <p-sortIcon [field]="'partnership'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'strategy'">Strategy
+                            <span style="float: right">
+                              <p-sortIcon [field]="'strategy'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'technology'">Technology
+                            <span style="float: right">
+                              <p-sortIcon [field]="'technology'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                        <th style="text-align: center" [pSortableColumn]="'total_score'">Total Score
+                            <span style="float: right">
+                              <p-sortIcon [field]="'total_score'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </span>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data>
+                    <tr>
+                        <td style="text-align: left;">{{ data.company_name}}</td>
+                        <td style="text-align: right;">{{ data.communication }}</td>
+                        <td style="text-align: right">{{ data.competencies }}</td>
+                        <td style="text-align: right">{{ data.motivation }}</td>
+                        <td style="text-align: right">{{ data.operation }}</td>
+                        <td style="text-align: right">{{ data.partnership }}</td>
+                        <td style="text-align: right">{{ data.strategy }}</td>
+                        <td style="text-align: right">{{ data.technology }}</td>
+                        <td style="text-align: right">{{ data.total_score }}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="9" style="text-align: center;">
+                            Data tidak Tersedia
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

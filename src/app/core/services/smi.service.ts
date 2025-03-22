@@ -39,4 +39,7 @@ export class SMIService {
   get_email_entry_survey(params: any): Observable<any> {
     return this.http.get(`${environment.url_smi}api/email_entry_survey`, {params: params}) as Observable<any>;
   }
+  get_summary_report_final_result(params: any): Observable<any> {
+    return this.http.get(`${environment.url_smi}api/summary_report_final_result`, {params: params}) as Observable<any>;
+  }
 }

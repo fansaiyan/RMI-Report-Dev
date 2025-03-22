@@ -4,19 +4,26 @@ import {AdjustAspekDimensiComponent} from 'src/app/pages/report/adjust-aspek-dim
 import {CanActiveGuardService} from 'src/app/core/services/can-active-guard.service';
 import {SurveyComponent} from 'src/app/pages/smi/survey/survey.component';
 import {UploadDokumenComponent} from 'src/app/pages/smi/upload-dokumen/upload-dokumen.component';
+import {ReportSummaryComponent} from 'src/app/pages/smi/report-summary/report-summary.component';
 
 const routes: Routes = [
   {
     path: 'survey',
     component: SurveyComponent,
     canActivate: [CanActiveGuardService],
-    data: {setTitle: 'Survey'}
+    data: {setTitle: 'Self Assessment'}
   },
   {
     path: 'upload-document',
     component: UploadDokumenComponent,
     canActivate: [CanActiveGuardService],
     data: {setTitle: 'Upload Document'}
+  },
+  {
+    path: 'report-summary',
+    component: ReportSummaryComponent,
+    canActivate: [CanActiveGuardService],
+    data: {setTitle: 'Report Summray Final Result'}
   }
 ];
 

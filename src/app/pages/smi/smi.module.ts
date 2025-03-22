@@ -7,6 +7,7 @@ import {SharedModule} from 'src/app/shared/shared.module';
 import { FinalCalculationComponent } from './survey/final-calculation/final-calculation.component';
 import { DetailFilesComponent } from './survey/final-calculation/detail-files/detail-files.component';
 import { FormCalculationComponent } from './survey/final-calculation/form-calculation/form-calculation.component';
+import { ReportSummaryComponent } from './report-summary/report-summary.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormCalculationComponent } from './survey/final-calculation/form-calcul
     UploadDokumenComponent,
     FinalCalculationComponent,
     DetailFilesComponent,
-    FormCalculationComponent
+    FormCalculationComponent,
+    ReportSummaryComponent
   ],
   imports: [
     CoreModule,

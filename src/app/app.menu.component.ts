@@ -45,8 +45,9 @@ export class AppMenuComponent implements OnInit {
                 {
                     label: 'SMI', icon: 'pi pi-fw pi-list', routerLink: ['/smi'],
                     items: [
+                        {label: 'Upload Document', icon: 'pi pi-fw pi-upload', routerLink: ['/smi/upload-document']},
                         {label: 'Self Assessment', icon: 'pi pi-fw pi-list', routerLink: ['/smi/survey']},
-                        {label: 'Upload Document', icon: 'pi pi-fw pi-upload', routerLink: ['/smi/upload-document']}
+
                     ]
                 }
             )
@@ -68,10 +69,16 @@ export class AppMenuComponent implements OnInit {
                 {
                     label: 'SMI', icon: 'pi pi-fw pi-list', routerLink: ['/smi'],
                     items: [
+                        {label: 'Upload Document', icon: 'pi pi-fw pi-upload', routerLink: ['/smi/upload-document']},
                         {label: 'Self Assessment', icon: 'pi pi-fw pi-list', routerLink: ['/smi/survey']},
-                        {label: 'Upload Document', icon: 'pi pi-fw pi-upload', routerLink: ['/smi/upload-document']}
+
                     ]
                 }
+            )
+        }
+        if(this.authService.isAssessor()){
+            this.model[2].items.push(
+                {label: 'Report Summary', icon: 'pi pi-fw pi-print', routerLink: ['/smi/report-summary']},
             )
         }
     }
