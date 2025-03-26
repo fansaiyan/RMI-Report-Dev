@@ -66,10 +66,14 @@ export class SurveyComponent implements OnInit {
     });
   }
   getSurvey() {
-    this.service.surveys({survey_code: this.smi_survey_code}).subscribe(resp => {
+    this.service.surveys({survey_code: this.smi_survey_code, email: this.authService.email()}).subscribe(resp => {
       if (resp.data.length > 0){
         this.survey = resp.data[0];
-        this.survey_sim_link = `${environment.url_smi}survey/start/${this.survey.access_token}`;
+        if(this.survey.status != 'not_yet'){
+          this.survey_sim_link = `${environment.url_smi}survey/${this.survey.survey_token}/${this.survey.answer_token}`;
+        } else {
+          this.survey_sim_link = `${environment.url_smi}survey/start/${this.survey.survey_token}`;
+        }
       } else {
         this.messageService.add({
           key: 'toast-notif',

@@ -4,7 +4,8 @@
             <div class="p-field p-grid p-mb-0" *ngIf="!isAsesor">
                 <div class="p-md-12 p-lg-4">
                     <div class="card" *ngIf="survey">
-                        <p class="p-text-bold">{{survey?.title.en_US}}<p>
+                        <p class="p-text-bold">{{survey?.survey_name}}<p>
+                        <p class="p-text-bold" *ngIf="survey?.status != 'not_yet'">( Status : {{survey?.state_text}} )</p>
                         <p>Silakan Klik Tautan Berikut untuk mengisi Survey SMI. <a href="{{survey_sim_link}}" target="_blank">KLIK</a></p>
                     </div>
                 </div>
