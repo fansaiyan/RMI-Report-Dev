@@ -82,6 +82,70 @@ export class HelpersService {
       this.saveAsExcelFile(excelBuffer, `${filename}`);
     });
   }
+  exportExcel2(rows: any, filename: string, skip_red?: boolean, rows2?: any, companyName?: string) {
+    import('xlsx-js-style').then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet([]);
+
+      // Jika ada companyName, tambahkan di A1 dan B1
+      let startRow = 0;
+      if (companyName) {
+        xlsx.utils.sheet_add_json(worksheet, [{ 'A': 'Company', 'B': companyName }], { skipHeader: true, origin: 'A1' });
+        startRow = 3; // Jeda 2 baris, sehingga tabel mulai dari baris ke-4
+      }
+
+      // Tambahkan data mulai dari baris berikutnya setelah header (A4 jika companyName ada, A1 jika tidak)
+      xlsx.utils.sheet_add_json(worksheet, rows, { origin: `A${startRow + 1}` });
+
+      // --- Gaya merah untuk sel kosong ---
+      const redCellStyle = {
+        fill: {
+          type: 'pattern',
+          patternType: 'solid',
+          fgColor: { rgb: 'FF0000' },
+          bgColor: { rgb: 'FF0000' }
+        }
+      };
+
+      // Iterasi untuk menerapkan gaya merah jika filename kosong
+      const range = xlsx.utils.decode_range(worksheet['!ref'] || 'A1');
+      for (let rowNum = range.s.r + 1; rowNum <= range.e.r; rowNum++) {
+        const row = worksheet[xlsx.utils.encode_cell({ r: rowNum, c: 9 })]; // Kolom ke-9 (J)
+        if (row && !row.v) {
+          for (let colNum = range.s.c; colNum <= range.e.c; colNum++) {
+            const cell = xlsx.utils.encode_cell({ r: rowNum, c: colNum });
+            if (!worksheet[cell]) continue; // Skip sel kosong
+            if (!skip_red) {
+              worksheet[cell].s = redCellStyle;
+            }
+          }
+        }
+      }
+
+      let workbook = {
+        Sheets: { 'data': worksheet },
+        SheetNames: ['data']
+      };
+
+      // --- Jika ada rows2 (lembar kerja kedua) ---
+      if (rows2) {
+        const worksheet2 = xlsx.utils.json_to_sheet([]);
+        let startRow2 = 0;
+
+        if (companyName) {
+          xlsx.utils.sheet_add_json(worksheet2, [{ 'A': 'Company', 'B': companyName }], { skipHeader: true, origin: 'A1' });
+          startRow2 = 3; // Jeda 2 baris sebelum tabel
+        }
+
+        xlsx.utils.sheet_add_json(worksheet2, rows2, { origin: `A${startRow2 + 1}` });
+
+        workbook.Sheets['OFI'] = worksheet2;
+        workbook.SheetNames.push('OFI');
+      }
+
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, `${filename}`);
+    });
+  }
   saveAsExcelFile(buffer: any, fileName: string): void {
     const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const EXCEL_EXTENSION = '.xlsx';
@@ -99,4 +163,32 @@ export class HelpersService {
     });
     doc.save(`${filename}.pdf`);
   }
+  exportPDF2(columns: any, rows: any, filename: string, table: HTMLTableElement, companyName?: string) {
+    const doc = new jsPDF();
+
+    if (companyName) {
+      // Tambahkan nama perusahaan di atas tabel
+      doc.setFontSize(10);
+      doc.text('Company :', 14, 15);
+      doc.setFontSize(12);
+      doc.text(companyName, 35, 15);
+
+      // Jeda 2 baris sebelum tabel
+      autoTable(doc, {
+        head: [],
+        body: [],
+        startY: 25, // Mulai tabel dari posisi Y yang lebih rendah
+      });
+    }
+
+    // Render tabel utama
+    autoTable(doc, {
+      head: [columns],
+      body: rows,
+      startY: companyName ? 35 : 15, // Jika ada Company Name, mulai lebih ke bawah
+    });
+
+    doc.save(`${filename}.pdf`);
+  }
+
 }

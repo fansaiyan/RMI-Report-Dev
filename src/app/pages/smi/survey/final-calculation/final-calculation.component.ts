@@ -19,6 +19,7 @@ export class FinalCalculationComponent implements OnInit, OnChanges {
   @Input() email = null;
   @Input() smi_survey_code: any | null = null;
   @Input() isAsesor: boolean;
+  @Input() companyEmailSelected: any  | null = null;
   loading = false;
   listdata = [];
   msgs: any[] = [];
@@ -99,8 +100,12 @@ export class FinalCalculationComponent implements OnInit, OnChanges {
     });
   }
   exportCSV() {
+    let csvContent = '';
+    if (this.isAsesor && this.companyEmailSelected) {
+      csvContent += `Company Name;${this.companyEmailSelected.company_name}\n`;
+    }
     const data = this.table;
-    let csvContent = 'Criteria;Self Assessment;Uploaded Doc;Diff;Final Result;Remark\n';
+    csvContent += 'Criteria;Self Assessment;Uploaded Doc;Diff;Final Result;Remark\n';
     if (data.filteredValue){
       data.filteredValue.forEach((row: any) => {
         csvContent += `${row.sub_dimensi_name};${row.self_asesment};${row.uploaded_doc};${row.diff};${row.final_result};${row.remark}\n`;
@@ -125,7 +130,12 @@ export class FinalCalculationComponent implements OnInit, OnChanges {
         rows.push([row.sub_dimensi_name, row.self_asesment, row.uploaded_doc, row.diff, row.final_result, row.remark]);
       });
     }
-    this.helper.exportPDF(columns, rows, 'Self-Assessment', this.dt);
+    if (this.isAsesor && this.companyEmailSelected){
+      this.helper.exportPDF2(columns, rows, 'Self-Assessment', this.dt, this.companyEmailSelected.company_name);
+    } else {
+      this.helper.exportPDF(columns, rows, 'Self-Assessment', this.dt);
+    }
+
   }
   exportExcel() {
     const data = this.table;
@@ -153,6 +163,10 @@ export class FinalCalculationComponent implements OnInit, OnChanges {
         });
       });
     }
-    this.helper.exportExcel(rows, 'Self-Assessment');
+    if (this.isAsesor && this.companyEmailSelected){
+      this.helper.exportExcel2(rows, 'Self-Assessment', false, null, this.companyEmailSelected.company_name);
+    } else {
+      this.helper.exportExcel(rows, 'Self-Assessment');
+    }
   }
 }
