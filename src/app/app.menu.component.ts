@@ -39,7 +39,8 @@ export class AppMenuComponent implements OnInit {
                                 {label: 'Aspek Dimensi', icon: 'pi pi-fw pi-id-card', routerLink: ['/rmi/report/aspek-dimensi']},
                                 {label: 'Aspek Kinerja', icon: 'pi pi-fw pi-id-card', routerLink: ['/rmi/report/aspek-kinerja']}
                             ]
-                        }
+                        },
+                        {label: 'Self Assessment', icon: 'pi pi-fw pi-list', routerLink: ['/rmi/self-assessment']},
                     ]
                 },
                 {
@@ -63,7 +64,8 @@ export class AppMenuComponent implements OnInit {
                                 {label: 'Aspek Dimensi', icon: 'pi pi-fw pi-id-card', routerLink: ['/rmi/report/aspek-dimensi']},
                                 {label: 'Aspek Kinerja', icon: 'pi pi-fw pi-id-card', routerLink: ['/rmi/report/aspek-kinerja']}
                             ]
-                        }
+                        },
+                        {label: 'Self Assessment', icon: 'pi pi-fw pi-list', routerLink: ['/rmi/self-assessment']},
                     ]
                 },
                 {

@@ -54,4 +54,7 @@ export class MasterService {
   getCompanyUserEmail(): Observable<any>{
     return this.ifService.get(`api/company_user_email`) as Observable<any>;
   }
+  surveyGetLink(params: any): Observable<any> {
+    return this.ifService.get(`api/survey-get-link`, params) as Observable<any>;
+  }
 }

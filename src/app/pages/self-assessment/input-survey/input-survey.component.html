@@ -1,0 +1,26 @@
+<div class="p-grid">
+    <div class="p-col-12 p-pb-0">
+        <div class="card">
+            <div class="p-field p-grid p-mb-0" *ngIf="!isAsesor">
+                <div class="p-md-12 p-lg-4">
+                    <div class="card" *ngIf="survey">
+                        <p class="p-text-bold">{{survey?.survey_name}}<p>
+                        <p class="p-text-bold" *ngIf="survey?.status != 'not_yet'">( Status : {{survey?.state_text}} )</p>
+                        <p>Silakan Klik Tautan Berikut untuk mengisi Survey SMI. <a href="{{survey_link}}" target="_blank">KLIK</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-field p-grid p-mb-0" *ngIf="isAsesor">
+                <div class="p-col-4">
+                    <input pInputText type="text" [(ngModel)]="companyEmail" [readOnly]="true" style="width: 100%"/>
+                </div>
+                <div class="p-col-1">
+                    <button (click)="findCompanyEmail()" pButton pRipple type="button" label="Company"  iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
+                </div>
+                <div class="p-col-1">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

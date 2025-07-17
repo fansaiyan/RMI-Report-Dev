@@ -50,6 +50,12 @@ export class AuthenticationService {
 		}
 		return 0;
 	}
+	partner_id(){
+		let session = JSON.parse(this.getAccessToken());
+		if(session){
+			return session.partner_id;
+		}
+	}
 	email(){
 		let session = JSON.parse(this.getAccessToken());
 		if(session){

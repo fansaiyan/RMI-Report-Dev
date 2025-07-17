@@ -27,6 +27,11 @@ const routes: Routes = [
     path: 'smi',
     loadChildren: () => import('./smi/smi.module').then(m => m.SMIModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'rmi',
+    loadChildren: () => import('./self-assessment/self-assessment.module').then(m => m.SelfAssessmentModule),
+    canActivate: [AuthGuard]
   }
 ];
 
