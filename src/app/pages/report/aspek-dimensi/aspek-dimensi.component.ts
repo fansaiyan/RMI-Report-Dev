@@ -55,6 +55,6 @@ export class AspekDimensiComponent implements OnInit {
   }
   pilih(e: any){
     this.helper.setInfoSurvey(e);
-    this.router.navigate(['/report/aspek-dimensi', e.id]);
+    this.router.navigate(['/rmi/report/aspek-dimensi', e.id]);
   }
 }

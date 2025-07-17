@@ -227,7 +227,7 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
     }
   }
   back(){
-    this.route.navigate(['report/aspek-kinerja']);
+    this.route.navigate(['/rmi/report/aspek-kinerja']);
   }
   simpan(){
     if(this.forms.valid){
@@ -239,7 +239,7 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
             summary: 'Berhasil',
             detail: 'Data Berhasil Input'
           });
-          this.route.navigate(['report/aspek-kinerja']);
+          this.route.navigate(['/rmi/report/aspek-kinerja']);
         }
       },(error: any) => {
         this.messageService.add({

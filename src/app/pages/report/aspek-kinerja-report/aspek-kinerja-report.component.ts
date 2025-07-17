@@ -51,13 +51,13 @@ export class AspekKinerjaReportComponent implements OnInit {
     });
   }
   detail(e: any){
-    this.router.navigate(['/report/aspek-kinerja', e.id, 'survey', e.survey_ids]);
+    this.router.navigate(['/rmi/report/aspek-kinerja', e.id, 'survey', e.survey_ids]);
   }
   edit(e: any){
-    this.router.navigate(['/report/aspek-kinerja/form-aspek-kinerja', e.id]);
+    this.router.navigate(['/rmi/report/aspek-kinerja/form-aspek-kinerja', e.id]);
   }
   add(){
-    this.router.navigate(['/report/aspek-kinerja/form-aspek-kinerja']);
+    this.router.navigate(['/rmi/report/aspek-kinerja/form-aspek-kinerja']);
   }
   delete(e: any){
     this.confirmationService.confirm({

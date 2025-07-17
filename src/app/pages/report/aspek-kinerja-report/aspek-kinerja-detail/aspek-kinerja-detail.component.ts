@@ -87,7 +87,7 @@ export class AspekKinerjaDetailComponent implements OnInit {
     }
   }
   back(){
-    this.route.navigate(['report/aspek-kinerja']);
+    this.route.navigate(['/rmi/report/aspek-kinerja']);
   }
   print(){
     const data = document.getElementById('printArea');

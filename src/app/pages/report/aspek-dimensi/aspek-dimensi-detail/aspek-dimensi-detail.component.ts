@@ -108,7 +108,7 @@ export class AspekDimensiDetailComponent implements OnInit, OnDestroy {
     }
   }
   back(){
-    this.route.navigate(['report/aspek-dimensi']);
+    this.route.navigate(['rmi/report/aspek-dimensi']);
   }
   print(){
     const data = document.getElementById('printArea');
