@@ -1,38 +1,143 @@
 <div class="card">
     <div class="p-fluid">
         <form [formGroup]="forms">
-            <div class="p-field p-mb-4">
-                <span class="p-float-label">
-                  <input type="text" pInputText formControlName="ebit" required>
-                  <label>EBIT</label>
-                </span>
-            </div>
-            <div class="p-field p-mb-4">
-                <span class="p-float-label">
-                  <input type="text" pInputText formControlName="payment" required>
-                  <label>Interest Payment</label>
-                </span>
-            </div>
-            <div class="p-field p-mb-4">
-                <div class="col-4">
-                    <button (click)="calculate()" [disabled]="!forms.valid" pButton pRipple type="button" label="Calculate" icon="pi pi-check" iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
+            <p-accordion [multiple]="false">
+                <!-- ICR Section -->
+                <p-accordionTab header="ICR Input">
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-mt-2">
+                            <div class="p-field p-mb-2">
+                                <span class="p-float-label">
+                                  <input type="text" pInputText formControlName="ebit" />
+                                  <label>EBIT</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-col-6 p-md-6 p-mt-2">
+                            <div class="p-field p-mb-2">
+                                <span class="p-float-label">
+                                  <input type="text" pInputText formControlName="payment" />
+                                  <label>Interest Payment</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </p-accordionTab>
+
+                <!-- Z-Score Section -->
+                <p-accordionTab header="ALTMAN Z-SCORE Input">
+                    <div class="p-grid">
+                        <div class="p-col-12">
+                            <div class="p-field p-mb-2">
+                                <label for="companyType">Company Type</label>
+                                <p-dropdown
+                                        [options]="companyTypes"
+                                        optionLabel="label"
+                                        optionValue="value"
+                                        formControlName="company_type"
+                                        placeholder="Pilih Company Type"
+                                        inputId="companyType">
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <!-- LEFT & RIGHT COLUMNS -->
+                        <div class="p-col-12 p-md-6">
+                            <div class="p-field p-mb-2">
+                                <span class="p-float-label">
+                                  <input type="text" pInputText formControlName="wc" />
+                                  <label>Working Capital</label>
+                                </span>
+                            </div>
+                            <div class="p-field p-mb-2 p-mt-4">
+                                <span class="p-float-label">
+                                  <input type="text" pInputText formControlName="re" />
+                                  <label>Retained Earning</label>
+                                </span>
+                            </div>
+                            <div class="p-field p-mb-2 p-mt-4">
+                                <span class="p-float-label">
+                                  <input type="text" pInputText formControlName="z_ebit" />
+                                  <label>EBIT</label>
+                                </span>
+                            </div>
+                            <div class="p-field p-mb-2 p-mt-4">
+                                <span class="p-float-label">
+                                  <input type="text" pInputText formControlName="mve" />
+                                  <label>Market Value of Equity</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-md-6">
+                            <div class="p-field p-mb-2">
+                                <span class="p-float-label">
+                                  <input type="text" pInputText formControlName="bve" />
+                                  <label>Book Value of Equity</label>
+                                </span>
+                            </div>
+                            <div class="p-field p-mb-2 p-mt-4">
+                                <span class="p-float-label">
+                                  <input type="text" pInputText formControlName="ts" />
+                                  <label>Total Sales</label>
+                                </span>
+                            </div>
+                            <div class="p-field p-mb-2 p-mt-4">
+                                <span class="p-float-label">
+                                  <input type="text" pInputText formControlName="ta" />
+                                  <label>Total Asset</label>
+                                </span>
+                            </div>
+                            <div class="p-field p-mb-2 p-mt-4">
+                                <span class="p-float-label">
+                                  <input type="text" pInputText formControlName="tl" />
+                                  <label>Total Liability</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
+            <div class="p-d-flex p-flex-row p-justify-between" *ngIf="result">
+                <div class="p-d-flex p-flex-column p-align-center" *ngIf="resultICR">
+                    <p class="p-text-bold">ICR</p>
+                    <p>Rating : <b>{{resultICR.FinalRatingICR}}</b></p>
+                    <p>Skor : <b>{{resultICR.SkorRatingICR}}</b></p>
                 </div>
-                <div class="col-8">
-                    <h5>Result : {{resultPeringkat}}</h5>
+                <div class="p-d-flex p-flex-column p-align-center" *ngIf="resultZScore">
+                    <p class="p-text-bold">Z-Score</p>
+                    <p>Rating : <b>{{resultZScore.FinalRating}}</b></p>
+                    <p>Skor : <b>{{resultZScore.SkorRatingAltman}}</b></p>
+                </div>
+                <div class="p-d-flex p-flex-column p-align-center" *ngIf="result">
+                    <p class="p-text-bold">Final Result</p>
+                    <p>Rating : <b>{{result.name}}</b></p>
+                    <p>Skor : <b>{{result.nilai}}</b></p>
+                </div>
+            </div>
+            <!-- Calculate & Message -->
+            <div class="p-field p-mt-3">
+                <button (click)="calculate()" [disabled]="!isAnyFormValid()" pButton pRipple
+                        type="button" label="Calculate"
+                        icon="pi pi-check" iconPos="left"
+                        class="p-button-outlined p-w-full"></button>
+            </div>
+
+            <div class="p-grid">
+                <div class="p-col">
+                    <p-messages [value]="msgs"></p-messages>
                 </div>
             </div>
         </form>
-        <div class="p-grid">
-            <div class="p-col">
-                <p-messages [value]="msgs"></p-messages>
-            </div>
-        </div>
     </div>
+
     <div class="card-footer p-d-flex p-jc-between">
         <div></div>
         <div>
-            <button (click)="ok()" [disabled]="!result" pButton pRipple type="button" label="Simpan" icon="pi pi-save" iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
-            <button (click)="batal()" pButton pRipple type="button" label="Batal" icon="pi pi-times" iconPos="left" class="p-button-outlined p-button-danger p-mr-2 p-mb-2"></button>
+            <button (click)="ok()" [disabled]="!result" pButton pRipple type="button"
+                    label="Simpan" icon="pi pi-save" iconPos="left"
+                    class="p-button-outlined p-button-success p-mr-2"></button>
+            <button (click)="batal()" pButton pRipple type="button"
+                    label="Batal" icon="pi pi-times" iconPos="left"
+                    class="p-button-outlined p-button-danger"></button>
         </div>
     </div>
 </div>

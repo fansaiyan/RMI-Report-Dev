@@ -57,4 +57,7 @@ export class MasterService {
   surveyGetLink(params: any): Observable<any> {
     return this.ifService.get(`api/survey-get-link`, params) as Observable<any>;
   }
+  postCalculateFinalRating(postBody: any): Observable<any>{
+    return this.ifService.post(`api/calculate_final_rating`, postBody);
+  }
 }

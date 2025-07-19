@@ -114,13 +114,14 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
   calculateIcr(){
     const ref = this.dialog.open(FormCalculateIcrComponent, {
       width: '900px',
-      header: 'Calculate Interest Coverage Ratio',
+      header: 'Calculate Final Rating',
       data: {}
     });
     ref.onClose.subscribe((resp: any) => {
       if (resp){
-        if(resp.data?.length > 0){
-          this.finalRatingSelected = this.finalRatings.find(f => f.name == resp.data[0].name);
+        console.log(resp);
+        if(resp.id){
+          this.finalRatingSelected = this.finalRatings.find(f => f.name == resp.name);
           this.onChangeFinalRating({id: this.finalRatingSelected.id, nilai: this.finalRatingSelected.nilai});
         } else {
           this.finalRatingSelected = null;
