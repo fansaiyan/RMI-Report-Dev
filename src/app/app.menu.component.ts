@@ -40,7 +40,7 @@ export class AppMenuComponent implements OnInit {
                                 {label: 'Aspek Kinerja', icon: 'pi pi-fw pi-id-card', routerLink: ['/rmi/report/aspek-kinerja']}
                             ]
                         },
-                        {label: 'Self Assessment', icon: 'pi pi-fw pi-list', routerLink: ['/rmi/self-assessment']},
+                        // {label: 'Self Assessment', icon: 'pi pi-fw pi-list', routerLink: ['/rmi/self-assessment']},
                     ]
                 },
                 {
