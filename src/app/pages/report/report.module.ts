@@ -22,6 +22,7 @@ import { Chart4Component } from './adjust-aspek-dimensi/gap-analyze/chart4/chart
 import { Chart5Component } from './adjust-aspek-dimensi/gap-analyze/chart5/chart5.component';
 import { Chart6Component } from './adjust-aspek-dimensi/gap-analyze/chart6/chart6.component';
 import { OfiComponent } from './adjust-aspek-dimensi/ofi/ofi.component';
+import { FormCalculateKompositRisikoComponent } from './aspek-kinerja-report/form-calculate-komposit-risiko/form-calculate-komposit-risiko.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { OfiComponent } from './adjust-aspek-dimensi/ofi/ofi.component';
     Chart4Component,
     Chart5Component,
     Chart6Component,
-    OfiComponent
+    OfiComponent,
+    FormCalculateKompositRisikoComponent
   ],
   imports: [
     CoreModule,

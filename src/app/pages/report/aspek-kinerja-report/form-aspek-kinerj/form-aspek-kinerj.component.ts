@@ -9,6 +9,9 @@ import {AuthenticationService} from 'src/app/core/services/auth.service';
 import {
   FormCalculateIcrComponent
 } from 'src/app/pages/report/aspek-kinerja-report/form-calculate-icr/form-calculate-icr.component';
+import {
+  FormCalculateKompositRisikoComponent
+} from 'src/app/pages/report/aspek-kinerja-report/form-calculate-komposit-risiko/form-calculate-komposit-risiko.component';
 
 @Component({
   selector: 'app-form-aspek-kinerj',
@@ -119,7 +122,6 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
     });
     ref.onClose.subscribe((resp: any) => {
       if (resp){
-        console.log(resp);
         if(resp.id){
           this.finalRatingSelected = this.finalRatings.find(f => f.name == resp.name);
           this.onChangeFinalRating({id: this.finalRatingSelected.id, nilai: this.finalRatingSelected.nilai});
@@ -131,6 +133,22 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
             summary: 'Warnning',
             detail: 'Nilai Tidak Ditemukan',
           });
+        }
+      }
+    });
+  }
+  calculateKompositRisiko(){
+    const ref = this.dialog.open(FormCalculateKompositRisikoComponent, {
+      width: '900px',
+      header: 'Calculate Peringkat Komposit Risiko',
+      data: {}
+    });
+    ref.onClose.subscribe((resp: any) => {
+      if (resp){
+        let peringkat_komposit_risiko = resp['result_composite']['komposit_risiko_detil'];
+        if(peringkat_komposit_risiko.id){
+          this.kompositRisikoSelected = this.kompositRisikos.find(f => f.name == peringkat_komposit_risiko.name);
+          this.onChangeKompositRisiko({id: this.kompositRisikoSelected.id, nilai: this.kompositRisikoSelected.nilai});
         }
       }
     });

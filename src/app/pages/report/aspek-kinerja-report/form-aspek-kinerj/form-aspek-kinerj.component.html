@@ -37,9 +37,10 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="p-col-2">
-                                <div class="p-field p-mb-4">
+                            <div class="p-col-12">
+                                <div class="p-d-flex">
                                     <button *ngIf="surveySelected" (click)="calculateIcr()" pButton pRipple type="button" label="Calculate Final Rating"  iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
+                                    <button *ngIf="surveySelected" (click)="calculateKompositRisiko()" pButton pRipple type="button" label="Calculate Peringkat Komposit Risiko"  iconPos="left" class="p-button-outlined p-mr-2 p-mb-2"></button>
                                 </div>
                             </div>
                         </div>

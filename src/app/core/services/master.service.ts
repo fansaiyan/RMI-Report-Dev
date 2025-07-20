@@ -60,4 +60,7 @@ export class MasterService {
   postCalculateFinalRating(postBody: any): Observable<any>{
     return this.ifService.post(`api/calculate_final_rating`, postBody);
   }
+  postCalculateKompositRisiko(postBody: any): Observable<any>{
+    return this.ifService.post(`api/calculate_peringkat_composit_risiko`, postBody);
+  }
 }

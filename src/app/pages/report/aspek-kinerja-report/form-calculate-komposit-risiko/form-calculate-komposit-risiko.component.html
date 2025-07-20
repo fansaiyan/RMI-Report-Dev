@@ -1,0 +1,87 @@
+<div class="card">
+    <div class="p-fluid">
+        <form [formGroup]="forms">
+            <p-accordion [multiple]="true">
+                <!-- QUALITY MR Section -->
+                <p-accordionTab header="Kualitas Penerapan MR">
+                    <div class="p-grid">
+                        <ng-container *ngFor="let field of qualityMrFields">
+                            <div class="p-col-12 p-md-6 p-mt-2">
+                                <div class="p-field p-mb-2">
+                                  <span class="p-float-label">
+                                    <input type="text" pInputText [formControlName]="field.name" />
+                                    <label>{{ field.label }}</label>
+                                  </span>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </p-accordionTab>
+
+                <!-- PERFORMANCE Section -->
+                <p-accordionTab header="Pencapaian Kinerja">
+                    <div class="p-grid">
+                        <ng-container *ngFor="let field of performanceFields">
+                            <div class="p-col-12 p-md-6 p-mt-2">
+                                <div class="p-field p-mb-2">
+                                  <span class="p-float-label">
+                                    <input type="text" pInputText [formControlName]="field.name" />
+                                    <label>{{ field.label }}</label>
+                                  </span>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
+
+            <!-- RESULT Section -->
+            <div class="p-d-flex p-flex-row p-justify-between p-mt-4" *ngIf="result">
+                <div class="p-d-flex p-flex-column p-align-start">
+                    <p class="p-text-bold">Quality MR</p>
+                    <p *ngFor="let key of qualityMrResultKeys">
+                        {{ resultQualityMrLabels[key] }} : <b>{{ result.result_quality_mr[key] }}</b>
+                    </p>
+                </div>
+
+                <div class="p-d-flex p-flex-column p-align-start">
+                    <p class="p-text-bold">Performance</p>
+                    <p *ngFor="let key of performanceResultKeys">
+                        {{ resultPerformanceLabels[key] }} : <b>{{ result.result_performance[key] }}</b>
+                    </p>
+                </div>
+
+                <div class="p-d-flex p-flex-column p-align-start">
+                    <p class="p-text-bold">Composite</p>
+                    <p *ngFor="let key of compositeResultKeys">
+                        {{ resultCompositeLabels[key] }} : <b>{{ result.result_composite[key] }}</b>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Calculate & Message -->
+            <div class="p-field p-mt-4">
+                <button (click)="calculate()" [disabled]="!forms.valid" pButton pRipple
+                        type="button" label="Calculate" icon="pi pi-check" iconPos="left"
+                        class="p-button-outlined p-w-full"></button>
+            </div>
+
+            <div class="p-grid">
+                <div class="p-col">
+                    <p-messages [value]="msgs"></p-messages>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer p-d-flex p-jc-between">
+        <div></div>
+        <div>
+            <button (click)="ok()" [disabled]="!result" pButton pRipple type="button"
+                    label="Simpan" icon="pi pi-save" iconPos="left"
+                    class="p-button-outlined p-button-success p-mr-2"></button>
+            <button (click)="batal()" pButton pRipple type="button"
+                    label="Batal" icon="pi pi-times" iconPos="left"
+                    class="p-button-outlined p-button-danger"></button>
+        </div>
+    </div>
+</div>
