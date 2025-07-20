@@ -46,11 +46,11 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
       survey_ids: [0, [Validators.required, Validators.min(1)]],
       aspect_value: [0, [Validators.required, Validators.min(1)]],
       aspect_conversion_value: 0,
-      final_rating_weight: [0, [Validators.required, Validators.min(1)]],
+      final_rating_weight: [50, [Validators.required, Validators.min(1)]],
       conversion_rating_value: 0,
       composite_risk_levels: [0, [Validators.required, Validators.min(1)]],
       composite_risk_conversion_value: 0,
-      composite_risk_weight: [0, [Validators.required, Validators.min(1)]],
+      composite_risk_weight: [50, [Validators.required, Validators.min(1)]],
       conversion_risk_value: 0,
       total_rating_value: 0,
       score_adjustment: 0
