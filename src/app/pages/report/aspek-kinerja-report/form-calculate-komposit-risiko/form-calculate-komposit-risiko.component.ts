@@ -88,7 +88,11 @@ export class FormCalculateKompositRisikoComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.config.data?.lastInput){
+      this.forms.patchValue(this.config.data?.lastInput);
+    }
+  }
 
   calculate() {
     if (!this.forms.valid) {
@@ -136,8 +140,8 @@ export class FormCalculateKompositRisikoComponent implements OnInit, OnDestroy {
     );
   }
   ok() {
+    this.ref.close({lastInput: this.forms.value, ...this.result});
     this.ngOnDestroy();
-    this.ref.close(this.result);
   }
   batal() {
     this.ngOnDestroy();

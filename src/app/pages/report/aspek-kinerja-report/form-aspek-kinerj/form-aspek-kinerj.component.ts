@@ -28,6 +28,8 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
   kompositRisikos = [];
   kompositRisikoSelected: any;
   id = "";
+  lastInputFinalRatingForm: any | null = null;
+  lastInputKompositForm: any | null = null;
   constructor(
       private route: Router,
       private fb: FormBuilder,
@@ -66,6 +68,12 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
       this.service.aspekKinerjaById(+this.id).subscribe(resp => {
         if(resp.data.length > 0){
           let data = resp.data[0];
+          if(data['final_rating_input_json']){
+            this.lastInputFinalRatingForm = JSON.parse(data['final_rating_input_json']);
+          }
+          if(data['final_rating_input_json']){
+            this.lastInputKompositForm = JSON.parse(data['komposit_risiko_input_json']);
+          }
           this.forms.patchValue({
             id: data['id'],
             uid: data['create_uid'],
@@ -114,15 +122,18 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
       }
     });
   }
-  calculateIcr(){
+  calculateFinalRating(){
     const ref = this.dialog.open(FormCalculateIcrComponent, {
       width: '900px',
       header: 'Calculate Final Rating',
-      data: {}
+      data: {
+        lastInput: this.lastInputFinalRatingForm
+      }
     });
     ref.onClose.subscribe((resp: any) => {
       if (resp){
         if(resp.id){
+          this.lastInputFinalRatingForm = resp.lastInput;
           this.finalRatingSelected = this.finalRatings.find(f => f.name == resp.name);
           this.onChangeFinalRating({id: this.finalRatingSelected.id, nilai: this.finalRatingSelected.nilai});
         } else {
@@ -141,10 +152,13 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
     const ref = this.dialog.open(FormCalculateKompositRisikoComponent, {
       width: '900px',
       header: 'Calculate Peringkat Komposit Risiko',
-      data: {}
+      data: {
+        lastInput: this.lastInputKompositForm
+      }
     });
     ref.onClose.subscribe((resp: any) => {
       if (resp){
+        this.lastInputKompositForm = resp.lastInput;
         let peringkat_komposit_risiko = resp['result_composite']['komposit_risiko_detil'];
         if(peringkat_komposit_risiko.id){
           this.kompositRisikoSelected = this.kompositRisikos.find(f => f.name == peringkat_komposit_risiko.name);
@@ -250,7 +264,12 @@ export class FormAspekKinerjComponent implements OnInit, OnDestroy {
   }
   simpan(){
     if(this.forms.valid){
-      this.service.postAspekKinerja(this.forms.value).subscribe((resp) => {
+      const payload = {
+        ...this.forms.value,
+        final_rating_input_json: this.lastInputFinalRatingForm,
+        komposit_risiko_input_json: this.lastInputKompositForm
+      };
+      this.service.postAspekKinerja(payload).subscribe((resp) => {
         if(resp.status == 200){
           this.messageService.add({
             key: 'toast-notif',
